@@ -1,9 +1,10 @@
 * {
-    background-color: bisque;
-    border: 1px solid black;
+    /* background-color: bisque; */
+    /* border: 1px solid black; */
     margin: 0;
     padding:  0;
 }
+
 
 .container {
   display: flex;

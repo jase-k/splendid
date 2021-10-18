@@ -88,9 +88,34 @@ GAME = {
 					"diamond" : 0, 
 					"onyx" : 0
 				},
+    "nobles" : [
+                    { 
+                    "id" : 0, 
+                    "score" : 3, 
+                    "cost" : {
+                        "ruby" : 0, 
+                        "emerald" : 0, 
+                        "sapphire" : 0, 
+                        "diamond" : 0, 
+                        "onyx" : 0
+                        }
+                    },
+                    { 
+                    "id" : 0, 
+                    "score" : 3, 
+                    "cost" : {
+                        "ruby" : 0, 
+                        "emerald" : 0, 
+                        "sapphire" : 0, 
+                        "diamond" : 0, 
+                        "onyx" : 0
+                        }
+                    },
+                ]
 	"players" : [ 
 					{
 						"id" : 0,
+                        "position" : 1, 
 						"user" : {
 									"id" : 0,
 									"username" : "jaecheese",
@@ -135,6 +160,7 @@ GAME = {
 						},
 						{
 						"id" : 0,
+                        "position" : 1, 
 						"user" : {
 									"id" : 0,
 									"username" : "jaecheese",
