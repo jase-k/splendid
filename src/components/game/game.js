@@ -8,9 +8,9 @@ class Game extends React.Component {
     render(){
         return(
             <div className="container">
-                < LeftPlayer />
+                < LeftPlayer players={this.props.game.players} />
                 < Board game={this.props.game}/>
-                < RightPlayer />
+                < RightPlayer players={this.props.game.players}/>
             </div>
         )
     }

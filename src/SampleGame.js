@@ -76,6 +76,138 @@ var gameData = {
 					{
 						"id" : 0,
                         "position" : 1, 
+                        "character_id" : 4,
+						"user" : {
+									"id" : 0,
+									"username" : "jaecheese",
+									"created_at" : "2021-10-15",
+									"updated_at" : "2021-10-15",
+								},
+						"nobles" : 	[
+										{ 
+										"id" : 0, 
+										"score" : 3, 
+										"cost" : {
+											"ruby" : 0, 
+											"emerald" : 0, 
+											"sapphire" : 0, 
+											"diamond" : 0, 
+											"onyx" : 0
+											}
+										},
+									], 
+						"tokens" : 	{
+										"ruby" : 0, 
+										"emerald" : 0, 
+										"sapphire" : 3, 
+										"diamond" : 3, 
+										"onyx" : 0
+									},
+						"cards" : [
+									{ 
+										"id" : 0,
+										"score" : 0, 
+										"deck_id" : 0, 
+										"token" : "ruby",
+										"cost" : {
+													"ruby" : 0, 
+													"emerald" : 0, 
+													"sapphire" : 0, 
+													"diamond" : 0, 
+													"onyx" : 0
+												}
+									}
+									],
+						},
+						{
+						"id" : 0,
+                        "position" : 1, 
+                        "character_id" : 3,
+						"user" : {
+									"id" : 0,
+									"username" : "jaecheese",
+									"created_at" : "2021-10-15",
+									"updated_at" : "2021-10-15",
+								},
+						"nobles" : 	[
+										{ 
+										"id" : 0, 
+										"score" : 3, 
+										"cost" : {
+											"ruby" : 0, 
+											"emerald" : 0, 
+											"sapphire" : 0, 
+											"diamond" : 0, 
+											"onyx" : 0
+											}
+										},
+									], 
+						"tokens" : 	{
+										"ruby" : 0, 
+										"emerald" : 0, 
+										"sapphire" : 0, 
+										"diamond" : 0, 
+										"onyx" : 0
+									},
+						"cards" : [
+                            { 
+                                "id" : 0,
+                                "score" : 0, 
+                                "deck_id" : 0, 
+                                "token" : "gold",
+                                "cost" : {
+                                            "ruby" : 0, 
+                                            "emerald" : 0, 
+                                            "sapphire" : 0, 
+                                            "diamond" : 0, 
+                                            "onyx" : 0
+                                        }
+                            },
+                            { 
+                                "id" : 0,
+                                "score" : 0, 
+                                "deck_id" : 0, 
+                                "token" : "onyx",
+                                "cost" : {
+                                            "ruby" : 0, 
+                                            "emerald" : 0, 
+                                            "sapphire" : 0, 
+                                            "diamond" : 0, 
+                                            "onyx" : 0
+                                        }
+                            },
+                            { 
+                                "id" : 0,
+                                "score" : 0, 
+                                "deck_id" : 0, 
+                                "token" : "ruby",
+                                "cost" : {
+                                            "ruby" : 0, 
+                                            "emerald" : 0, 
+                                            "sapphire" : 0, 
+                                            "diamond" : 0, 
+                                            "onyx" : 0
+                                        }
+                            },
+                            { 
+                                "id" : 0,
+                                "score" : 0, 
+                                "deck_id" : 0, 
+                                "token" : "sapphire",
+                                "cost" : {
+                                            "ruby" : 0, 
+                                            "emerald" : 0, 
+                                            "sapphire" : 0, 
+                                            "diamond" : 0, 
+                                            "onyx" : 0
+                                        }
+                            },
+									],
+						},
+						{
+						"id" : 0,
+                        "position" : 1, 
+                        "character_id" : 1,
 						"user" : {
 									"id" : 0,
 									"username" : "jaecheese",
@@ -115,12 +247,52 @@ var gameData = {
 													"diamond" : 0, 
 													"onyx" : 0
 												}
-									}
+									},
+									{ 
+										"id" : 0,
+										"score" : 0, 
+										"deck_id" : 0, 
+										"token" : "ruby",
+										"cost" : {
+													"ruby" : 0, 
+													"emerald" : 0, 
+													"sapphire" : 0, 
+													"diamond" : 0, 
+													"onyx" : 0
+												}
+									},
+									{ 
+										"id" : 0,
+										"score" : 0, 
+										"deck_id" : 0, 
+										"token" : "ruby",
+										"cost" : {
+													"ruby" : 0, 
+													"emerald" : 0, 
+													"sapphire" : 0, 
+													"diamond" : 0, 
+													"onyx" : 0
+												}
+									},
+									{ 
+										"id" : 0,
+										"score" : 0, 
+										"deck_id" : 0, 
+										"token" : "ruby",
+										"cost" : {
+													"ruby" : 0, 
+													"emerald" : 0, 
+													"sapphire" : 0, 
+													"diamond" : 0, 
+													"onyx" : 0
+												}
+									},
 									],
 						},
 						{
 						"id" : 0,
                         "position" : 1, 
+                        "character_id" : 2,
 						"user" : {
 									"id" : 0,
 									"username" : "jaecheese",

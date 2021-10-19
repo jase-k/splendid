@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
         <Header />
-        <Game game={gameData}/>
+        <Game game={gameData} />
     </div>
   );
 }
