@@ -1,6 +1,5 @@
 import React  from "react";
-import LeftPlayer from "./LeftPlayer/leftplayer";
-import RightPlayer from "./RightPlayer/rightplayer";
+import PlayerPanel from "./PlayerPanel/playerpanel"
 import Board from "./Board/board";
 
 
@@ -8,9 +7,13 @@ class Game extends React.Component {
     render(){
         return(
             <div className="container">
-                < LeftPlayer players={this.props.game.players} />
+                < PlayerPanel players={this.props.game.players} 
+                turn={this.props.game.turn}
+                side="left" />
                 < Board game={this.props.game}/>
-                < RightPlayer players={this.props.game.players}/>
+                < PlayerPanel players={this.props.game.players} 
+                turn={this.props.game.turn}
+                side="right" />
             </div>
         )
     }

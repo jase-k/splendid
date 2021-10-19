@@ -6,7 +6,7 @@ var gameData = {
 					"created_at" : "2021-10-15",
 					"updated_at" : "2021-10-15",
 				},
-	"turn" : 1,
+	"turn" : 17,
 	"tokens" : {
 					"ruby" : 5, 
 					"emerald" : 2, 
@@ -121,7 +121,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 1, 
+                        "position" : 2, 
                         "character_id" : 3,
 						"user" : {
 									"id" : 0,
@@ -206,7 +206,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 1, 
+                        "position" : 3, 
                         "character_id" : 1,
 						"user" : {
 									"id" : 0,
@@ -291,7 +291,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 1, 
+                        "position" : 0, 
                         "character_id" : 2,
 						"user" : {
 									"id" : 0,
