@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { bounce, fadeIn, fadeOut, flip, flipInX, hinge, jello, pulse, rubberBand, shake, swing, tada, wobble, zoomIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 import SignIn from './SignIn/signin';
+import GameSetup from './gamesetup/gamesetup';
+import HoldingArea from './holding/holdingarea';
 import './login.scss'
 
 const styles = {
@@ -64,8 +66,10 @@ const styles = {
 }
 const styleList = [styles.bounce, styles.empty, styles.fadeIn, styles.fadeOut, styles.flip, styles.jello, styles.pulse, styles.rubberBand, styles.shake, styles.tada, styles.wobble, styles.swing, styles.flipInX, styles.zoomIn]
 
-class Login extends Component {
-
+class WaitingArea extends Component {
+    constructor(props){
+        super(props)
+    }
     renderCards(){
         var cards = []
         for(var i = 1; i < 50; i++){
@@ -79,18 +83,38 @@ class Login extends Component {
         }
         return cards
     }
+    renderContainer(){
+        if(this.props.loggedIn){
+            if(!this.props.gameStatus){
+                return(
+                    < GameSetup 
+                    startgame = {this.props.startgame}
+                    />
+                )
+            }
+            else{
+                return(
+                    < HoldingArea 
+                    gameData = {this.props.gameData}
+                    />
+                )
+            }
+        }
+        else{
+            return( < SignIn 
+                register = {this.props.register}
+                />)
+        }
+    }
     render(){
-        return(
-            <div className="loginContainer">
-                {this.renderCards()}
-                <div className ="overlay"></div>
-                < SignIn 
-                onClick = {()=>{
-                    this.toggleIsLogin()
-                }}
-                />
-            </div>
-        )
+            return(
+                <div className="waitingContainer">
+                    {this.renderCards()}
+                    <div className ="overlay"></div>
+                    {this.renderContainer()}
+                </div>
+            )
+        
     }
 }
-export default Login;
+export default WaitingArea;
