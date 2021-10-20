@@ -15,7 +15,7 @@ class BlueDeck extends React.Component {
             // <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".svg"}
             // className = "card"
             // />
-            <img src={process.env.PUBLIC_URL +"cardImgs/0.svg"}
+            <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"}
             className = "card"
             />
         )

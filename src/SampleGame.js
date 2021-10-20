@@ -6,7 +6,7 @@ var gameData = {
 					"created_at" : "2021-10-15",
 					"updated_at" : "2021-10-15",
 				},
-	"turn" : 1,
+	"turn" : 17,
 	"tokens" : {
 					"ruby" : 5, 
 					"emerald" : 2, 
@@ -61,7 +61,7 @@ var gameData = {
                         }
                     },
                     { 
-                    "id" : 4, 
+                    "id" : 5, 
                     "score" : 3, 
                     "cost" : {
                         "ruby" : 0, 
@@ -121,7 +121,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 1, 
+                        "position" : 2, 
                         "character_id" : 3,
 						"user" : {
 									"id" : 0,
@@ -206,7 +206,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 1, 
+                        "position" : 3, 
                         "character_id" : 1,
 						"user" : {
 									"id" : 0,
@@ -291,7 +291,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 1, 
+                        "position" : 0, 
                         "character_id" : 2,
 						"user" : {
 									"id" : 0,
@@ -343,7 +343,7 @@ var gameData = {
 			"color" : "green", 
 			"cards" : [	
 							{ 
-								"id" : 0,
+								"id" : 1,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -356,7 +356,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 9,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -369,7 +369,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 17,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -382,7 +382,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 25,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "diamond",
@@ -402,7 +402,7 @@ var gameData = {
 			"color" : "yellow", 
 			"cards" : [	
 							{ 
-								"id" : 0,
+								"id" : 41,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -415,7 +415,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 46,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -428,7 +428,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 50,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -441,7 +441,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 58,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "diamond",
@@ -461,7 +461,7 @@ var gameData = {
 			"color" : "blue", 
 			"cards" : [	
 							{ 
-								"id" : 0,
+								"id" : 71,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -474,7 +474,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 85,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -487,7 +487,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 90,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "ruby",
@@ -500,7 +500,7 @@ var gameData = {
 										}
 							},
 							{ 
-								"id" : 0,
+								"id" : 78,
 								"score" : 0, 
 								"deck_id" : 0, 
 								"token" : "diamond",

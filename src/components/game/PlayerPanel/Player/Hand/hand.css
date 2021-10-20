@@ -1,0 +1,76 @@
+.allHand {
+    display: flex;
+    overflow: hidden;
+}
+
+.allHand.right {
+    flex-direction: row-reverse;
+}
+
+.cardHand {
+    height: 2rem;
+    width: 2.25rem;
+    background-color: gold;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.cardHand.right {
+    margin-right: -3px;
+    margin-left: 2rem;
+    justify-content: flex-start;
+}
+
+.cardHand.right span {
+    margin-left: 0.25rem;
+}
+
+.cardHand.left {
+    margin-left: -3px;
+    margin-right: 2rem;
+    justify-content: flex-end;
+}
+
+.cardHand.left span {
+    margin-right: 0.25rem;
+}
+
+.tokenHand {
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+.ruby {
+    background-color: red;
+}
+
+.emerald {
+    background-color: green;
+}
+
+.sapphire {
+    background-color: blue;
+    color: whitesmoke
+}
+
+.onyx {
+    background-color: black;
+    color: white;
+}
+
+.diamond {
+    background-color: whitesmoke;
+}
+
+.gold {
+    background-color: gold;
+}

@@ -11,7 +11,7 @@ class YellowDeck extends React.Component {
     renderCard(card){
         console.log("CARD", card)
         return (
-            <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".svg"} 
+            <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"} 
             className ="card"
             />
         )
