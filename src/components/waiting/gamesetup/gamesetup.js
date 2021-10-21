@@ -14,15 +14,14 @@ class GameSetup extends Component {
     }
     updateCharacter(e){
         var charContainer = document.getElementById('character')
-       charContainer.innerHTML = `<img src=${process.env.PUBLIC_URL +'/characters/'+e.target.value+'.png'} className='character' >`
-       console.log(e.target.value)
-       
+        charContainer.innerHTML = `<img src=${process.env.PUBLIC_URL +'/characters/'+e.target.value+'.png'} className='character' >`
+        console.log(e.target.value)
     }
     renderGameID(e){
         var idContainer = document.getElementById('gameId')
         var startButton = document.getElementById('start_game')
         if(e.target.value === 'join_game'){
-            idContainer.innerHTML = `<input type='text' placeholder='game id' name='game_id'/>`
+            idContainer.innerHTML = `<input type='text' placeholder='game id' name='game_id' id='game_id'/>`
             startButton.value = 'Join!'
         }
         else{
@@ -34,15 +33,14 @@ class GameSetup extends Component {
         return(
             <div className='signinContainer'>
                 <form>
-                    <select onChange={this.renderGameID}>
+                    <select onChange={this.renderGameID} id="join_start">
                         <option value="new_game">New Game</option>
                         <option value="join_game">Join Game</option>
                     </select>
                     <div id="gameId">
-                        {/* {this.updateCharacter()} */}
                     </div>
                     <br />
-                    <select onChange={this.updateCharacter}>
+                    <select onChange={this.updateCharacter} id="character_id">
                         {this.renderCharacters()}
                     </select>
                     <div id="character">

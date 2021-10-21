@@ -23,7 +23,7 @@ class SignIn extends Component {
                     <p>Login</p>
                     <input type="text" placeholder="UserName" name="username" id="username"/>
                     <input type="password"placeholder="Password" name="password" id="password"/>
-                    <input type="submit" value="Login" onClick={this.props.register} />
+                    <input type="submit" value="Login" onClick={this.props.login} />
                     <br />
                     <a href="#">Forgot Password?</a>
                     <br />
@@ -40,6 +40,7 @@ class SignIn extends Component {
                     <input type="email" placeholder="Email" name="email" id="email"/>
                     <input type="password"placeholder="Password" name="password" id="password"/>
                     <input type="password" placeholder="Confirm Password" name="confirm" id="confirm"/>
+                    <br />
                     <input type="button" value="Register" onClick={this.props.register}/>
                     <br />
                     <a href="#">Forgot Password?</a>
@@ -53,12 +54,12 @@ class SignIn extends Component {
         return(
             <div className="signinContainer">
                 {this.renderForm()}
-                    <div class="drops">
-                        <div class="drop drop-1"></div>
-                        <div class="drop drop-2"></div>
-                        <div class="drop drop-3"></div>
-                        <div class="drop drop-4"></div>
-                        <div class="drop drop-5"></div>
+                    <div className="drops">
+                        <div className="drop drop-1"></div>
+                        <div className="drop drop-2"></div>
+                        <div className="drop drop-3"></div>
+                        <div className="drop drop-4"></div>
+                        <div className="drop drop-5"></div>
                     </div>
             </div>
         )

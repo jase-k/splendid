@@ -89,6 +89,7 @@ class WaitingArea extends Component {
                 return(
                     < GameSetup 
                     startgame = {this.props.startgame}
+                    joingame = {this.props.joinGame}
                     />
                 )
             }
@@ -96,6 +97,8 @@ class WaitingArea extends Component {
                 return(
                     < HoldingArea 
                     gameData = {this.props.gameData}
+                    initGame = {this.props.initGame}
+                    getUpdate = {this.props.getUpdate}
                     />
                 )
             }
@@ -103,6 +106,7 @@ class WaitingArea extends Component {
         else{
             return( < SignIn 
                 register = {this.props.register}
+                login = {this.props.login}
                 />)
         }
     }
