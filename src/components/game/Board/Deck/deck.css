@@ -14,3 +14,6 @@
     border-radius: 5%;
 }
 
+.selected {
+    box-shadow: 5px 5px 10px black;
+}

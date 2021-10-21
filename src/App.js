@@ -19,7 +19,7 @@ class App extends React.Component {
         user_id: null,
         currentTurn: { //default everytime component rerenders
           canPlay: false,
-          player: null,
+          player: gameData.players[gameData.turn % gameData.players.length],
           choice: null, // null, tokens, card
           tokensSelected : [], //Array of 3 token Ids
           cardSelected : null //1 card Id
@@ -360,7 +360,7 @@ class App extends React.Component {
                   this.setState({
                     currentTurn: { //default everytime component rerenders
                       canPlay: false,
-                      player: null,
+                      player: response.players[response.turn % response.players.length],
                       choice: null, // null, tokens, card
                       tokensSelected : [], //Array of 3 token Ids
                       cardSelected : null //1 card Id
@@ -391,7 +391,7 @@ class App extends React.Component {
                   this.setState({
                     currentTurn: { //default everytime component rerenders
                       canPlay: false,
-                      player: null,
+                      player: response.players[response.turn % response.players.length],
                       choice: null, // null, tokens, card
                       tokensSelected : [], //Array of 3 token Ids
                       cardSelected : null //1 card Id
