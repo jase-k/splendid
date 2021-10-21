@@ -18,6 +18,7 @@ class App extends React.Component {
         character: null,
         user_id: null,
         currentTurn: {
+          canPlay: false,
           player: null,
           choice: null, // null, tokens, card
           tokensSelected : [], //Array of 3 token Ids
@@ -31,7 +32,7 @@ class App extends React.Component {
     this.handleInitializeGame = this.handleInitializeGame.bind(this)
     this.handleSelectCard = this.handleSelectCard.bind(this)
     this.handleGetToken = this.handleGetToken.bind(this)
-}
+  }
   handleGetToken(e){
     var tokenName = e.target.parentElement.classList[1]
     var tokenDict = {
@@ -47,6 +48,7 @@ class App extends React.Component {
     if(tokenName == "gold"){
       updated.tokensSelected = [] //clears selected tokens if choice is gold
       updated.tokensSelected.push(tokenDict[tokenName])
+      updated.canPlay = true
       this.setState({
         currentTurn: updated
       })
@@ -54,7 +56,8 @@ class App extends React.Component {
     }
 
     if(updated.tokensSelected.length == 0){
-      updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice      
+      updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
+      updated.canPlay = false
       this.setState({
         currentTurn: updated
       })
@@ -62,6 +65,7 @@ class App extends React.Component {
     }else if(updated.tokensSelected[0] == 6){
       updated.tokensSelected = [] //clears gold if choice is not gold
       updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice      
+      updated.canPlay = false
       this.setState({
         currentTurn: updated
       })
@@ -72,6 +76,7 @@ class App extends React.Component {
       if(tokenDict[tokenName] == updated.tokensSelected[0]){ //check if selected token matches
         if(this.state.gameData.tokenPool[tokenName] > 3){ //Are their 4 or more tokens in the game.tokenPool
           updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
+          updated.canPlay = true
           this.setState({
             currentTurn: updated
           })
@@ -79,6 +84,7 @@ class App extends React.Component {
         }
         else{
           updated.tokensSelected = [] 
+          updated.canPlay = false
           this.setState({
             currentTurn: updated
           })
@@ -87,6 +93,7 @@ class App extends React.Component {
       }
       else{
         updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
+        updated.canPlay = false
           this.setState({
             currentTurn: updated
           })
@@ -97,6 +104,7 @@ class App extends React.Component {
       if(updated.tokensSelected[1] === updated.tokensSelected[0]){
         if(tokenDict[tokenName] == updated.tokensSelected[0]){
           updated.tokensSelected =[]
+          updated.canPlay = false
           this.setState({
             currentTurn: updated
           })
@@ -106,6 +114,7 @@ class App extends React.Component {
       }
       if(tokenDict[tokenName] == updated.tokensSelected[0]){
         updated.tokensSelected.shift()
+        updated.canPlay = false
         this.setState({
           currentTurn: updated
         })
@@ -113,12 +122,14 @@ class App extends React.Component {
       }
       if(tokenDict[tokenName] == updated.tokensSelected[1]){
         updated.tokensSelected.pop()
+        updated.canPlay = false
         this.setState({
           currentTurn: updated
         })
         return
       }
       updated.tokensSelected.push(tokenDict[tokenName])
+      updated.canPlay = true
       this.setState({
         currentTurn: updated
       })
@@ -128,6 +139,7 @@ class App extends React.Component {
       for(var i = 0 ; i < 3; i++){
         if(updated.tokensSelected[i] == tokenDict[tokenName]){
           updated.tokensSelected.splice(i, 1)
+          updated.canPlay = false
           this.setState({
             currentTurn: updated
           })
@@ -331,7 +343,7 @@ class App extends React.Component {
   }
   render(){
     
-    console.log("Current Turn STATE: ", this.state.currentTurn.tokensSelected)
+    console.log("Current Turn STATE: ", this.state.currentTurn)
     return (
       <div className="App">
           {this.renderApp()}
