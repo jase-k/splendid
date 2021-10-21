@@ -1,0 +1,16 @@
+.deckContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.card:hover{
+    box-shadow: 5px 5px 10px black;
+    height: 210px;
+}
+.card{
+    height: 200px;
+    border-radius: 5%;
+}
+

@@ -3,7 +3,6 @@ import './hand.css'
 
 class Hand extends React.Component{
     renderCards(cardArray){
-        console.log(cardArray)
         var cards = []
         var hand = this.calculateCards(cardArray)
         for(const key in hand){
@@ -27,7 +26,6 @@ class Hand extends React.Component{
         for(var i = 0; i < cardArray.length; i++){
             cards[cardArray[i].token]++
         }
-        console.log("Cards", cards)
         return cards
     }
     renderTokens(tokenObject){

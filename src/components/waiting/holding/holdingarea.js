@@ -22,6 +22,7 @@ class HoldingArea extends Component {
         return(
             <div className="signinContainer">
                 <form>  
+                    <h3>Game id: {this.props.gameData.id}</h3>
                     <h2>Players Ready: </h2>
                     <div className="bullpen">
                         {this.renderPlayers()}

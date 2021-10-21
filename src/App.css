@@ -13,9 +13,16 @@ h1 {
 .container {
   display: flex;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 1rem;
 }
 
 .boardContainer {
   flex: 2;
 }
 
+.background {
+  position: absolute;
+  z-index: -1;
+}

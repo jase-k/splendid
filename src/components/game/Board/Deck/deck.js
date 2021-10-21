@@ -1,7 +1,7 @@
 import React  from "react";
-import './bluedeck.css'
+import './deck.css'
 
-class BlueDeck extends React.Component {
+class Deck extends React.Component {
     renderCards(deckArray){
         var cards = []
         for(var i = 0; i < 4 && i < deckArray.length; i++){
@@ -10,23 +10,23 @@ class BlueDeck extends React.Component {
         return cards
     }
     renderCard(card){
-        console.log("CARD", card)
         return (
             // <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".svg"}
             // className = "card"
             // />
             <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"}
             className = "card"
+            onClick={this.props.selectCard}
             />
         )
     }
     render(){
         return(
             <div className="deckContainer">
-                <img src={process.env.PUBLIC_URL + "cardImgs/bluedeck.svg"} />
+                <img src={process.env.PUBLIC_URL + "cardImgs/"+this.props.deckCover} />
                 {this.renderCards(this.props.deck.cards)}
             </div>
         )
     }
 }
-export default BlueDeck;
+export default Deck;

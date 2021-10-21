@@ -1,7 +1,5 @@
 import React  from "react";
-import GreenDeck from "./GreenDeck/greendeck";
-import YellowDeck from "./YellowDeck/yellowdeck";
-import BlueDeck from "./BlueDeck/bluedeck";
+import Deck from "./Deck/deck";
 import NobleContainer from "./Nobles/nobles";
 import TokenContainer from "./Tokens/tokenContainer";
 
@@ -12,7 +10,6 @@ class Board extends React.Component {
         for(var i = 0; i < decks.length; i++){
             if(decks[i].color == "blue"){
                 var bluedeck = decks[i]
-                console.log(bluedeck)
             }
             if(decks[i].color == "green"){
                 var greendeck = decks[i]
@@ -24,10 +21,26 @@ class Board extends React.Component {
         return(
             <div className="boardContainer">
                 < NobleContainer nobles={this.props.game.nobles}/>
-                < BlueDeck deck={bluedeck} />
-                < YellowDeck deck={yellowdeck}/>
-                < GreenDeck deck={greendeck}/>
-                < TokenContainer tokens ={this.props.game.tokenPool} />
+                < Deck 
+                deck={bluedeck} 
+                deckCover = "bluedeck.svg"
+                selectCard = {this.props.selectCard}
+                />
+                < Deck 
+                deck={yellowdeck}
+                deckCover = "yellowdeck.svg"
+                selectCard = {this.props.selectCard}
+                />
+                < Deck 
+                deck={greendeck}
+                deckCover = "greendeck.svg"
+                selectCard = {this.props.selectCard}
+                />
+                < TokenContainer 
+                tokens ={this.props.game.tokenPool} 
+                tokensSelected = {this.props.currentTurn.tokensSelected}
+                selectToken = {this.props.selectToken}
+                />
             </div>
         )
     }

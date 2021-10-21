@@ -16,13 +16,128 @@ class App extends React.Component {
         gameData: gameData,
         username: null,
         character: null,
-        user_id: null
+        user_id: null,
+        currentTurn: {
+          player: null,
+          choice: null, // null, tokens, card
+          tokensSelected : [], //Array of 3 token Ids
+          cardSelected : null //1 card Id
+      }
     }
     this.handleRegister = this.handleRegister.bind(this)
     this.handleStartGame = this.handleStartGame.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.getGameUpdate = this.getGameUpdate.bind(this)
     this.handleInitializeGame = this.handleInitializeGame.bind(this)
+    this.handleSelectCard = this.handleSelectCard.bind(this)
+    this.handleGetToken = this.handleGetToken.bind(this)
+}
+  handleGetToken(e){
+    var tokenName = e.target.parentElement.classList[1]
+    var tokenDict = {
+      "onyx" : 1, 
+      "sapphire" : 2, 
+      "ruby" : 3, 
+      "diamond" : 4, 
+      "emerald" : 5, 
+      "gold" : 6
+    }
+    var updated = this.state.currentTurn
+    updated.cardSelected = null
+    if(tokenName == "gold"){
+      updated.tokensSelected = [] //clears selected tokens if choice is gold
+      updated.tokensSelected.push(tokenDict[tokenName])
+      this.setState({
+        currentTurn: updated
+      })
+      return
+    }
+
+    if(updated.tokensSelected.length == 0){
+      updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice      
+      this.setState({
+        currentTurn: updated
+      })
+      return
+    }else if(updated.tokensSelected[0] == 6){
+      updated.tokensSelected = [] //clears gold if choice is not gold
+      updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice      
+      this.setState({
+        currentTurn: updated
+      })
+      return
+    }
+
+    if(updated.tokensSelected.length == 1){
+      if(tokenDict[tokenName] == updated.tokensSelected[0]){ //check if selected token matches
+        if(this.state.gameData.tokenPool[tokenName] > 3){ //Are their 4 or more tokens in the game.tokenPool
+          updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
+          this.setState({
+            currentTurn: updated
+          })
+          return
+        }
+        else{
+          updated.tokensSelected = [] 
+          this.setState({
+            currentTurn: updated
+          })
+          return
+        }
+      }
+      else{
+        updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
+          this.setState({
+            currentTurn: updated
+          })
+          return
+      }
+    }
+    if(updated.tokensSelected.length == 2){
+      if(updated.tokensSelected[1] === updated.tokensSelected[0]){
+        if(tokenDict[tokenName] == updated.tokensSelected[0]){
+          updated.tokensSelected =[]
+          this.setState({
+            currentTurn: updated
+          })
+          return
+        }
+        return
+      }
+      if(tokenDict[tokenName] == updated.tokensSelected[0]){
+        updated.tokensSelected.shift()
+        this.setState({
+          currentTurn: updated
+        })
+        return
+      }
+      if(tokenDict[tokenName] == updated.tokensSelected[1]){
+        updated.tokensSelected.pop()
+        this.setState({
+          currentTurn: updated
+        })
+        return
+      }
+      updated.tokensSelected.push(tokenDict[tokenName])
+      this.setState({
+        currentTurn: updated
+      })
+      return
+    }
+    if(updated.tokensSelected.length == 3){
+      for(var i = 0 ; i < 3; i++){
+        if(updated.tokensSelected[i] == tokenDict[tokenName]){
+          updated.tokensSelected.splice(i, 1)
+          this.setState({
+            currentTurn: updated
+          })
+          return
+        }
+      }
+    }
+  } 
+  handleSelectCard(){
+    console.log("selected card")
   }
   handleRegister(){
     console.log("click")
@@ -170,9 +285,13 @@ class App extends React.Component {
         var response = JSON.parse(xhr.response)
         console.log("Game Update: ", response)
         if(response.turn > 0){
+          
+          var updated = this.state.currentTurn
+          updated.player = (response.players[response.turn % response.players.length])
           this.setState({
             gameStatus: "active",
-            gameData: response
+            gameData: response,
+            currentTurn: updated
           })
         }
         else{
@@ -189,7 +308,12 @@ class App extends React.Component {
   }
   renderApp(){
     if(this.state.gameStatus === "active"){
-        return(<Game game={this.state.gameData} />)
+        return(<Game 
+          game={this.state.gameData} 
+          currentTurn = {this.state.currentTurn}
+          selectToken = {this.handleGetToken}
+          selectCard = {this.handleSelectCard}
+          />)
       }
     else{
       return(< WaitingArea 
@@ -207,7 +331,7 @@ class App extends React.Component {
   }
   render(){
     
-    console.log("GAME STATE: ", this.state)
+    console.log("Current Turn STATE: ", this.state.currentTurn.tokensSelected)
     return (
       <div className="App">
           {this.renderApp()}

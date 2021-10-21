@@ -5,7 +5,6 @@ import './player.css'
 
 class Player extends React.Component{
     findScore(player){
-        console.log(player)
         var totalScore = 0
         for(var i = 0; i < player.nobles.length; i++){
             totalScore += player.nobles[i].score
@@ -27,7 +26,7 @@ class Player extends React.Component{
                 numOfPlayers={this.props.numOfPlayers}
                 />
                 < Hand 
-                tokens={this.props.player.tokens}
+                tokens={this.props.player.tokenPool}
                 hand={this.props.player.cards}
                 side={this.props.side}
                 numOfPlayers={this.props.numOfPlayers} 
