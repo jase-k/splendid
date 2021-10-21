@@ -5,7 +5,7 @@ class Character extends React.Component{
     
     render(){
         var active = ""
-        var position = this.props.player.position
+        var position = this.props.player.turn
         var turn = this.props.turn
         if(turn%this.props.numOfPlayers == position){
             active = "active"

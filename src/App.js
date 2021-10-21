@@ -171,12 +171,15 @@ class App extends React.Component {
         console.log("Game Update: ", response)
         if(response.turn > 0){
           this.setState({
-            gameStatus: "active"
+            gameStatus: "active",
+            gameData: response
           })
         }
-        this.setState({
-          gameData: response
-        })
+        else{
+          this.setState({
+            gameData: response
+          })
+        }
       }
     }
     var data ={
