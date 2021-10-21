@@ -15,7 +15,7 @@ class Deck extends React.Component {
             // className = "card"
             // />
             <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"}
-            className = "card"
+            className = {"card "+card.id}
             onClick={this.props.selectCard}
             />
         )

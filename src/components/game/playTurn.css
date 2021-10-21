@@ -1,0 +1,28 @@
+.playTurn {
+    position: fixed;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    background-color: rgba(255,255,255,0.5);
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+.playTurn button{
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.playTurn button:hover{
+    box-shadow: 3px 3px 5px #000;
+    cursor: pointer;
+}
+
+.cancelButton {
+    background-color: tomato;
+}
+
+.playButton {
+    background-color: green;
+}

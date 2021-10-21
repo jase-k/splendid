@@ -5,6 +5,12 @@ import TokenContainer from "./Tokens/tokenContainer";
 
 
 class Board extends React.Component {
+    // componentDidMount(){
+    //     updateInterval();
+    // }
+    // componentWillUnmount(){
+    //     clearInterval(updateInterval) 
+    // }
     render(){
         var decks = this.props.game.decks
         for(var i = 0; i < decks.length; i++){

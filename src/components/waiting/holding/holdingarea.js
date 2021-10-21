@@ -1,9 +1,13 @@
 import {React, Component} from 'react';
 import './holdingarea.css'
+
 class HoldingArea extends Component {
-    componentWillMount(){
+    componentDidMount(){
         setInterval(this.props.getUpdate, 5000);
     }
+    // componentWillUnmount(){
+    //     clearInterval(updateInterval) 
+    // }
     renderPlayers(){
         let players = []
         let gamePlayers = this.props.gameData.players

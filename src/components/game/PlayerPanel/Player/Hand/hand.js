@@ -24,7 +24,7 @@ class Hand extends React.Component{
             "gold" : 0,
         }
         for(var i = 0; i < cardArray.length; i++){
-            cards[cardArray[i].token]++
+            cards[cardArray[i].tokenName]++
         }
         return cards
     }
