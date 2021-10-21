@@ -27,7 +27,7 @@ class Board extends React.Component {
                 < BlueDeck deck={bluedeck} />
                 < YellowDeck deck={yellowdeck}/>
                 < GreenDeck deck={greendeck}/>
-                < TokenContainer tokens ={this.props.game.tokens} />
+                < TokenContainer tokens ={this.props.game.tokenPool} />
             </div>
         )
     }

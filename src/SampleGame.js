@@ -7,7 +7,7 @@ var gameData = {
 					"updated_at" : "2021-10-15",
 				},
 	"turn" : 17,
-	"tokens" : {
+	"tokenPool" : {
 					"ruby" : 5, 
 					"emerald" : 2, 
 					"sapphire" : 7, 

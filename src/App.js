@@ -22,6 +22,7 @@ class App extends React.Component {
     this.handleStartGame = this.handleStartGame.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.getGameUpdate = this.getGameUpdate.bind(this)
+    this.handleInitializeGame = this.handleInitializeGame.bind(this)
   }
   handleRegister(){
     console.log("click")
@@ -45,11 +46,12 @@ class App extends React.Component {
     var data = {
         "username" : document.querySelector('#username').value,
         "password" : document.querySelector('#password').value,
-        "confirm" : document.querySelector('#confirm').value
+        "confirm" : document.querySelector('#confirm').value,
+        "email" : document.querySelector('#email').value
     }
     xhr.send(JSON.stringify(data));
   }
-  handleLogin(){ //NOT TESTED
+  handleLogin(){ 
     console.log("click")
     var xhr = new XMLHttpRequest();
     xhr.open("POST", API_URL+ '/login', true);
@@ -58,14 +60,20 @@ class App extends React.Component {
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = () => { // Call a function when the state changes.
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            console.log(this)
-            let response = JSON.parse(xhr.response)
-            this.setState({
-                loggedIn: true,
-                username: response.username,
-                user_id: response.id
-            })
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+          let response = JSON.parse(xhr.response)
+            if(xhr.status === 200){
+              console.log(this)
+              this.setState({
+                  loggedIn: true,
+                  username: response.username,
+                  user_id: response.id
+              })
+            }
+            else{
+              console.log(response)
+              alert("Unrecognized User. Please try again. If problem persists email jase@perfectmypodcast.com")
+            }
         }
     }
     var data = {
@@ -75,7 +83,7 @@ class App extends React.Component {
     xhr.send(JSON.stringify(data));
   }
 
-  handleInitializeGame(){ //NOT TESTED
+  handleInitializeGame(){ 
     var xhr = new XMLHttpRequest();
     var url = API_URL+"/games/start"
     
@@ -91,7 +99,8 @@ class App extends React.Component {
         })
       }
     }
-    var data ={
+    xhr.setRequestHeader("Content-Type", "application/json");
+    var data = {
       "game_id" : this.state.gameData.id
     }
     xhr.send(JSON.stringify(data))
@@ -123,7 +132,7 @@ class App extends React.Component {
   
       xhr.send();
     }
-    else{ //NOT TESTED
+    else{ 
       var url = API_URL+"/games/join"
       var game_id = document.getElementById("game_id").value
 
@@ -139,17 +148,18 @@ class App extends React.Component {
           })
         }
       }
+      xhr.setRequestHeader("Content-Type", "application/json");
       var data ={
         "user_id" : this.state.user_id,
-        "character_id" : char_id,
-        "game_id" : game_id
+        "character_id" : parseInt(char_id),
+        "game_id" : parseInt(game_id)
       }
       xhr.send(JSON.stringify(data))
     }
     
 
   }
-  getGameUpdate(){ //NOT TESTED
+  getGameUpdate(){ 
     var xhr = new XMLHttpRequest();
     var url = API_URL+"/games/"+ this.state.gameData.id
     

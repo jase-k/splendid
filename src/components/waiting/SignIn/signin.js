@@ -23,7 +23,7 @@ class SignIn extends Component {
                     <p>Login</p>
                     <input type="text" placeholder="UserName" name="username" id="username"/>
                     <input type="password"placeholder="Password" name="password" id="password"/>
-                    <input type="submit" value="Login" onClick={this.props.login} />
+                    <input type="button" value="Login" onClick={this.props.login} />
                     <br />
                     <a href="#">Forgot Password?</a>
                     <br />

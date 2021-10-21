@@ -21,7 +21,7 @@ class GameSetup extends Component {
         var idContainer = document.getElementById('gameId')
         var startButton = document.getElementById('start_game')
         if(e.target.value === 'join_game'){
-            idContainer.innerHTML = `<input type='text' placeholder='game id' name='game_id' id='game_id'/>`
+            idContainer.innerHTML = `<input type='number' placeholder='game id' name='game_id' id='game_id'/>`
             startButton.value = 'Join!'
         }
         else{
