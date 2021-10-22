@@ -29,10 +29,11 @@ class SignIn extends Component {
         }
         var data = {
             "username" : document.querySelector('#username').value,
+            "email" : document.querySelector('#email').value,
             "password" : document.querySelector('#password').value,
             "confirm" : document.querySelector('#confirm').value
         }
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
     }
     renderForm(){
         if(this.state.isLogin){
