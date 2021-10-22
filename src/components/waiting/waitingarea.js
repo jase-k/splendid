@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bounce, fadeIn, fadeOut, flip, flipInX, hinge, jello, pulse, rubberBand, shake, swing, tada, wobble, zoomIn } from 'react-animations';
+import { bounce, fadeIn, fadeOut, flip, flipInX, jello, pulse, rubberBand, shake, swing, tada, wobble, zoomIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 import SignIn from './SignIn/signin';
 import GameSetup from './gamesetup/gamesetup';
@@ -67,9 +67,6 @@ const styles = {
 const styleList = [styles.bounce, styles.empty, styles.fadeIn, styles.fadeOut, styles.flip, styles.jello, styles.pulse, styles.rubberBand, styles.shake, styles.tada, styles.wobble, styles.swing, styles.flipInX, styles.zoomIn]
 
 class WaitingArea extends Component {
-    constructor(props){
-        super(props)
-    }
     renderCards(){
         var cards = []
         for(var i = 1; i < 50; i++){
@@ -77,7 +74,7 @@ class WaitingArea extends Component {
             var animation = Math.floor(Math.random()*styleList.length)
             cards.push(
                 <StyleRoot>
-                    <img src={process.env.PUBLIC_URL + "cardImgs/"+cardNum+".png"} className="backgroundCard" style={styleList[animation]} />
+                    <img src={process.env.PUBLIC_URL + "cardImgs/"+cardNum+".png"} className="backgroundCard" style={styleList[animation]} alt=""/>
                 </StyleRoot>
             )
         }

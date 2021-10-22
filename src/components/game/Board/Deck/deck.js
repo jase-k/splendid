@@ -13,13 +13,13 @@ class Deck extends React.Component {
         var clickFunction = this.props.selectCard
         var hover = " hover"
         var tokenPool = this.props.player.tokenPool
-        console.log("CARD", card, tokenPool)
+        // console.log("CARD", card, tokenPool)
         var tokenList = ["diamond", "ruby", "sapphire", "onyx", "emerald"]
         var goldCount = tokenPool.gold
 
         
         for(var i = 0; i < 5; i++){
-            console.log(`I'm trying to subract ${card.tokenCost[tokenList[i]]} from ${tokenPool[tokenList[i]]}`)
+            // console.log(`I'm trying to subract ${card.tokenCost[tokenList[i]]} from ${tokenPool[tokenList[i]]}`)
             var numOfCards = 0;
             for(var j = 0; j < this.props.player.cards.length; j++){
                 if(this.props.player.cards[j].tokenName == tokenList[i]){
@@ -30,10 +30,9 @@ class Deck extends React.Component {
             if(num > 0){
                 goldCount -= num
             }
-            console.log(`Afterwards my gold count is ${goldCount}`)
         }
         if(goldCount < 0){
-            clickFunction = ""
+            clickFunction = () =>{}
             hover = ""
         }
         

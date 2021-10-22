@@ -23,10 +23,37 @@ class Game extends React.Component {
             )
         }
     }
+    renderCanNoble(){
+        console.log(this.props)
+        if(this.props.availableNobles.length > 0){
+            return(
+                <div className="playTurn buyNoble">
+                    <h3>Nobles Available for {this.props.loggedInPlayer.user.username}</h3>
+                    <div className="nobleContainer">
+                        {this.renderNobles()}
+                    </div>
+                </div>
+            )
+        }
+    }
+    renderNobles(){
+        var nobles = []
+        for(var i =0 ; i < this.props.availableNobles.length; i++){
+            nobles.push(
+            <img 
+            src={process.env.PUBLIC_URL + '/nobleImgs/'+this.props.availableNobles[i].id+'.png'} 
+            className={"nobleImg "+this.props.availableNobles[i].id}
+            alt=''
+            onClick={this.props.getNoble}
+            />
+            )
+        }
+        return nobles
+    }
     render(){
         return(
             <div className="container">
-                <img src={process.env.PUBLIC_URL +"background.jpg"} className="background"/>
+                <img src={process.env.PUBLIC_URL +"background.jpg"} className="background" alt=""/>
                 < PlayerPanel players={this.props.game.players} 
                 turn={this.props.game.turn}
                 side="left" />
@@ -40,6 +67,7 @@ class Game extends React.Component {
                 turn={this.props.game.turn}
                 side="right" />
                 {this.renderCanPlay()}
+                {this.renderCanNoble()}
             </div>
         )
     }

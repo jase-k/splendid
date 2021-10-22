@@ -26,3 +26,9 @@
 .playButton {
     background-color: green;
 }
+
+.buyNoble h3 {
+    width: 80%;
+    text-align: center;
+    padding: 1rem;
+}

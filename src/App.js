@@ -5,6 +5,7 @@ import './App.css';
 import gameData from './SampleGame'
 import React from 'react';
 
+
 var API_URL = 'http://localhost:8080'
 
 class App extends React.Component {
@@ -17,6 +18,9 @@ class App extends React.Component {
         username: null,
         character: null,
         user_id: null,
+        lastGotNoble: null,
+        availableNobles: [],
+        currentPlayer: [],
         currentTurn: { //default everytime component rerenders
           canPlay: false,
           player: gameData.players[gameData.turn % gameData.players.length],
@@ -33,6 +37,7 @@ class App extends React.Component {
     this.handleSelectCard = this.handleSelectCard.bind(this)
     this.handleGetToken = this.handleGetToken.bind(this)
     this.playTurn = this.playTurn.bind(this)
+    this.handleGetNoble = this.handleGetNoble.bind(this)
   }
   handleGetToken(e){
     var tokenName = e.target.parentElement.classList[1]
@@ -54,7 +59,7 @@ class App extends React.Component {
     }
     var updated = this.state.currentTurn
     updated.cardSelected = null
-    if(tokenName == "gold" && currentTokens != 10){
+    if(tokenName === "gold" && currentTokens != 10){
       updated.tokensSelected = [] //clears selected tokens if choice is gold
       updated.tokensSelected.push(tokenDict[tokenName])
       updated.canPlay = true
@@ -64,14 +69,14 @@ class App extends React.Component {
       return
     }
 
-    if(updated.tokensSelected.length == 0 && currentTokens != 10){
+    if(updated.tokensSelected.length === 0 && currentTokens != 10){
       updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
       updated.canPlay = false
       this.setState({
         currentTurn: updated
       })
       return
-    }else if(updated.tokensSelected[0] == 6 && currentTokens != 10){
+    }else if(updated.tokensSelected[0] === 6 && currentTokens != 10){
       updated.tokensSelected = [] //clears gold if choice is not gold
       updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice      
       updated.canPlay = false
@@ -81,8 +86,8 @@ class App extends React.Component {
       return
     }
 
-    if(updated.tokensSelected.length == 1){
-      if(tokenDict[tokenName] == updated.tokensSelected[0]){ //check if selected token matches
+    if(updated.tokensSelected.length === 1){
+      if(tokenDict[tokenName] === updated.tokensSelected[0]){ //check if selected token matches
         if(this.state.gameData.tokenPool[tokenName] > 3 && currentTokens < 9){ //Are their 4 or more tokens in the game.tokenPool
           updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
           updated.canPlay = true
@@ -111,9 +116,9 @@ class App extends React.Component {
         }
       }
     }
-    if(updated.tokensSelected.length == 2){
+    if(updated.tokensSelected.length === 2){
       if(updated.tokensSelected[1] === updated.tokensSelected[0]){
-        if(tokenDict[tokenName] == updated.tokensSelected[0]){
+        if(tokenDict[tokenName] === updated.tokensSelected[0]){
           updated.tokensSelected =[]
           updated.canPlay = false
           this.setState({
@@ -123,7 +128,7 @@ class App extends React.Component {
         }
         return
       }
-      if(tokenDict[tokenName] == updated.tokensSelected[0]){
+      if(tokenDict[tokenName] === updated.tokensSelected[0]){
         updated.tokensSelected.shift()
         updated.canPlay = false
         this.setState({
@@ -131,7 +136,7 @@ class App extends React.Component {
         })
         return
       }
-      if(tokenDict[tokenName] == updated.tokensSelected[1]){
+      if(tokenDict[tokenName] === updated.tokensSelected[1]){
         updated.tokensSelected.pop()
         updated.canPlay = false
         this.setState({
@@ -148,9 +153,9 @@ class App extends React.Component {
         return
       }
     }
-    if(updated.tokensSelected.length == 3){
+    if(updated.tokensSelected.length === 3){
       for(var i = 0 ; i < 3; i++){
-        if(updated.tokensSelected[i] == tokenDict[tokenName]){
+        if(updated.tokensSelected[i] === tokenDict[tokenName]){
           updated.tokensSelected.splice(i, 1)
           updated.canPlay = false
           this.setState({
@@ -168,7 +173,7 @@ class App extends React.Component {
     var updated = this.state.currentTurn
     updated.tokensSelected = []
     updated.canPlay = true
-    if(updated.cardSelected == e.target.classList[1]){
+    if(updated.cardSelected === e.target.classList[1]){
       updated.canPlay = false
       updated.cardSelected = null
     }
@@ -325,6 +330,36 @@ class App extends React.Component {
     
 
   }
+  checkNobles(response){
+    var currentPlayer = response.players.filter(player => player.user.id === this.state.user_id)
+    var nobles = response.nobles
+    var tokenList = ["diamond", "ruby", "sapphire", "onyx", "emerald"]
+    var hand = {
+      "diamond" : 0,
+      "ruby" : 0, 
+      "sapphire" : 0, 
+      "onyx" : 0, 
+      "emerald" : 0
+    }
+    for(var i = 0; i < currentPlayer[0].cards.length; i++){ //sets hand
+      hand[currentPlayer[0].cards[i].tokenName] += 1
+
+    }
+    var availableNobles = []
+    for(var i = 0; i < nobles.length; i++){
+      var is_available = true
+      for(var j = 0; j < tokenList.length; j++){
+        if(nobles[i].tokenCost[tokenList[j]] > hand[tokenList[j]]){
+          is_available = false
+        }
+      }
+      console.log(is_available)
+      if(is_available){
+        availableNobles.push(nobles[i])
+        }
+      }
+      return availableNobles
+    }
   getGameUpdate(){ 
     var xhr = new XMLHttpRequest();
     var url = API_URL+"/games/"+ this.state.gameData.id
@@ -339,10 +374,11 @@ class App extends React.Component {
           
           var updated = this.state.currentTurn
           updated.player = (response.players[response.turn % response.players.length])
+
           this.setState({
             gameStatus: "active",
             gameData: response,
-            currentTurn: updated
+            currentTurn: updated,
           })
         }
         else{
@@ -358,14 +394,14 @@ class App extends React.Component {
     xhr.send(JSON.stringify(data))
   }
   playTurn(e){
-    if(e.target.value == 'cancel'){
+    if(e.target.value === 'cancel'){
       var updated = this.state.currentTurn
       updated.canPlay = false
       this.setState({
         currentTurn: updated
       })
     }
-    if(e.target.value == 'play'){
+    if(e.target.value === 'play'){
       if(this.state.currentTurn.tokensSelected.length > 0){
         var xhr = new XMLHttpRequest();
         var url = '/games/'+this.state.gameData.id+"/taketokens/"+this.state.currentTurn.player.id
@@ -375,6 +411,7 @@ class App extends React.Component {
           if (xhr.readyState === XMLHttpRequest.DONE) {
               let response = JSON.parse(xhr.response)
                 if(xhr.status === 200){
+                  var availableNobles =  this.checkNobles(response)
                   this.setState({
                     currentTurn: { //default everytime component rerenders
                       canPlay: false,
@@ -382,7 +419,8 @@ class App extends React.Component {
                       choice: null, // null, tokens, card
                       tokensSelected : [], //Array of 3 token Ids
                       cardSelected : null //1 card Id
-                  }
+                  },
+                  availableNobles : availableNobles
                   })
                   this.getGameUpdate()
                 }
@@ -398,6 +436,7 @@ class App extends React.Component {
         xhr.send(JSON.stringify(data));
       }
       if(this.state.currentTurn.cardSelected){
+        console.log("Taking Card")
         var xhr = new XMLHttpRequest();
         var url = '/games/'+this.state.gameData.id+"/takecard/"+this.state.currentTurn.player.id
         xhr.open("POST", API_URL+ url, true);
@@ -406,6 +445,7 @@ class App extends React.Component {
           if (xhr.readyState === XMLHttpRequest.DONE) {
               let response = JSON.parse(xhr.response)
                 if(xhr.status === 200){
+                  var availableNobles =  this.checkNobles(response)
                   this.setState({
                     currentTurn: { //default everytime component rerenders
                       canPlay: false,
@@ -413,7 +453,8 @@ class App extends React.Component {
                       choice: null, // null, tokens, card
                       tokensSelected : [], //Array of 3 token Ids
                       cardSelected : null //1 card Id
-                  }
+                  },
+                    availableNobles : availableNobles
                   })
                   this.getGameUpdate()
                 }
@@ -430,14 +471,43 @@ class App extends React.Component {
       }
     }
   }
+  handleGetNoble(e){ //NOT TESTED
+    console.log(e.target.classList[1])
+    var xhr = new XMLHttpRequest();
+        var url = '/games/'+this.state.gameData.id+"/takenoble/"+this.state.currentTurn.player.id
+        xhr.open("POST", API_URL+ url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = () => { // Call a function when the state changes.
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+              let response = JSON.parse(xhr.response)
+                if(xhr.status === 200){
+                  console.log("success", response)
+                  this.setState({
+                    availableNobles : []
+                  })
+                }
+                else{
+                  console.log(response)
+                  alert("Problem with Nobles! ")
+                }
+            }
+        }
+        var data = {
+            "noble_id" : parseInt(e.target.classList[1])
+        }
+        xhr.send(JSON.stringify(data));
+  }
   renderApp(){
     if(this.state.gameStatus === "active"){
         return(<Game 
           game={this.state.gameData} 
           currentTurn = {this.state.currentTurn}
+          availableNobles = {this.state.availableNobles}
           selectToken = {this.handleGetToken}
           selectCard = {this.handleSelectCard}
           playTurn = {this.playTurn}
+          loggedInPlayer = {this.state.gameData.players.filter(player => player.user.id === this.state.user_id)[0]}
+          getNoble = {this.handleGetNoble}
           />)
       }
     else{
@@ -455,7 +525,7 @@ class App extends React.Component {
   }
   render(){
     
-    console.log("Current Turn STATE: ", this.state.currentTurn)
+    console.log("Current Turn STATE: ", this.state)
     return (
       <div className="App">
           {this.renderApp()}

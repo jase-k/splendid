@@ -9,7 +9,7 @@ class Player extends React.Component{
         for(var i = 0; i < player.nobles.length; i++){
             totalScore += player.nobles[i].score
         }
-        for(var i = 0; i < player.cards.length; i++){
+        for(i = 0; i < player.cards.length; i++){
             totalScore += player.cards[i].score
         }
 

@@ -7,7 +7,7 @@ class Character extends React.Component{
         var active = ""
         var position = this.props.player.turn
         var turn = this.props.turn
-        if(turn%this.props.numOfPlayers == position){
+        if(turn%this.props.numOfPlayers === position){
             active = "active"
         }
         return(
@@ -17,6 +17,7 @@ class Character extends React.Component{
                     <p className={"score "+this.props.side}><span>{this.props.score}</span></p>
                     <img src={process.env.PUBLIC_URL+"/characters/"+this.props.player.character_id+".png"} 
                     className={"character "+active+" "+this.props.side}
+                    alt=""
                     />
                 </div>
             </div>

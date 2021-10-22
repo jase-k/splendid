@@ -6,7 +6,7 @@ class PlayerPanel extends React.Component {
     renderPlayers(playersArray){
         var players = []
         var i = 0
-        if(this.props.side == "right"){
+        if(this.props.side === "right"){
             i = 1;
         }
         for(i; i < playersArray.length; i +=2){
