@@ -163,14 +163,25 @@ class App extends React.Component {
   } 
 
   handleSelectCard(e){
+    this.toggleSelectClass(e)
     console.log("selected card", e.target.classList[1])
     var updated = this.state.currentTurn
     updated.tokensSelected = []
     updated.canPlay = true
-    updated.cardSelected = e.target.classList[1]
+    if(updated.cardSelected == e.target.classList[1]){
+      updated.canPlay = false
+      updated.cardSelected = null
+    }
+    else{
+      updated.cardSelected = e.target.classList[1]
+    }
+    
     this.setState({
       currentTurn: updated
     })
+  }
+  toggleSelectClass(e){
+    e.target.classList.toggle("selected")
   }
   handleRegister(){
     console.log("click")
@@ -243,7 +254,14 @@ class App extends React.Component {
         console.log("Game Started: ", response)
         this.setState({
           gameStatus: "active",
-          gameData: response
+          gameData: response,
+          currentTurn: { //default everytime component rerenders
+            canPlay: false,
+            player: response.players[response.turn % response.players.length],
+            choice: null, // null, tokens, card
+            tokensSelected : [], //Array of 3 token Ids
+            cardSelected : null //1 card Id
+        }
         })
       }
     }
