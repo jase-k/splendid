@@ -2,7 +2,17 @@ import React from 'react';
 import './character.css'
 
 class Character extends React.Component{
-    
+    renderReservedCards(){
+        var numOfCards = 0; 
+        for(var i = 0; i < this.props.player.ownedCards.length; i++){
+            if(this.props.player.ownedCards[i] === "0"){
+                numOfCards++
+            }
+        }
+        return(
+            <div className = {"reservedCards "+this.props.side}>{numOfCards}</div>
+        )
+    }
     render(){
         var active = ""
         var position = this.props.player.turn
@@ -12,7 +22,7 @@ class Character extends React.Component{
         }
         return(
             <div className= {"characterContainer "+this.props.side}>
-                <div className = {"reservedCards "+this.props.side}>1</div>
+                {this.renderReservedCards()}
                 <div className = {"character "+this.props.side}>
                     <p className={"score "+this.props.side}><span>{this.props.score}</span></p>
                     <img src={process.env.PUBLIC_URL+"/characters/"+this.props.player.character_id+".png"} 

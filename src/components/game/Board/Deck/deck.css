@@ -5,6 +5,9 @@
     align-items: center;
 }
 
+.hover{
+    box-shadow: 0px 0px 20px gold;
+}
 .hover:hover{
     box-shadow: 5px 5px 10px black;
     height: 210px;
@@ -15,6 +18,7 @@
     border-radius: 5%;
 }
 
-.selected {
+.selectedc {
     box-shadow: 5px 5px 10px black;
+    height: 210px;
 }

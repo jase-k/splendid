@@ -16,15 +16,17 @@ class Hand extends React.Component{
     }
     calculateCards(cardArray){
         var cards = {
-            "ruby" : 0, 
-            "emerald" : 0, 
-            "sapphire" : 0, 
+            "gold" : 0,
             "diamond" : 0, 
             "onyx" : 0,
-            "gold" : 0,
+            "emerald" : 0, 
+            "ruby" : 0, 
+            "sapphire" : 0, 
         }
         for(var i = 0; i < cardArray.length; i++){
-            cards[cardArray[i].tokenName]++
+            if(this.props.player.ownedCards[i] === "1"){
+                cards[cardArray[i].tokenName]++
+            }
         }
         return cards
     }

@@ -10,7 +10,9 @@ class Player extends React.Component{
             totalScore += player.nobles[i].score
         }
         for(i = 0; i < player.cards.length; i++){
-            totalScore += player.cards[i].score
+            if(player.ownedCards[i] === "1"){
+                totalScore += player.cards[i].score
+            }
         }
 
         return totalScore;
@@ -26,6 +28,7 @@ class Player extends React.Component{
                 numOfPlayers={this.props.numOfPlayers}
                 />
                 < Hand 
+                player={this.props.player} 
                 tokens={this.props.player.tokenPool}
                 hand={this.props.player.cards}
                 side={this.props.side}

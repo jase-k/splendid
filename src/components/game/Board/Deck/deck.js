@@ -31,7 +31,7 @@ class Deck extends React.Component {
                 goldCount -= num
             }
         }
-        if(goldCount < 0){
+        if(goldCount < 0 && this.props.currentTurn.reserveCard == false){
             clickFunction = () =>{}
             hover = ""
         }
@@ -39,7 +39,7 @@ class Deck extends React.Component {
         
         return (
             <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"}
-            className = {"card "+card.id+hover}
+            className = {"card "+card.id+" "+card.tokenName+hover}
             onClick={clickFunction}
             />
         )

@@ -31,24 +31,28 @@ class Board extends React.Component {
                 deck={bluedeck} 
                 deckCover = "bluedeck.svg"
                 selectCard = {this.props.selectCard}
-                player = {this.props.currentTurn.player}
+                player = {this.props.loggedInPlayer}
+                currentTurn = {this.props.currentTurn}
                 />
                 < Deck 
                 deck={yellowdeck}
                 deckCover = "yellowdeck.svg"
                 selectCard = {this.props.selectCard}
-                player = {this.props.currentTurn.player}
+                player = {this.props.loggedInPlayer}
+                currentTurn = {this.props.currentTurn}
                 />
                 < Deck 
                 deck={greendeck}
                 deckCover = "greendeck.svg"
                 selectCard = {this.props.selectCard}
-                player = {this.props.currentTurn.player}
+                player = {this.props.loggedInPlayer}
+                currentTurn = {this.props.currentTurn}
                 />
                 < TokenContainer 
                 tokens ={this.props.game.tokenPool} 
                 tokensSelected = {this.props.currentTurn.tokensSelected}
                 selectToken = {this.props.selectToken}
+                currentTurn = {this.props.currentTurn}
                 />
             </div>
         )

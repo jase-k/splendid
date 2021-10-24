@@ -23,10 +23,14 @@ class App extends React.Component {
         currentPlayer: [],
         currentTurn: { //default everytime component rerenders
           canPlay: false,
+          reserveCard: false,
           player: gameData.players[gameData.turn % gameData.players.length],
           choice: null, // null, tokens, card
           tokensSelected : [], //Array of 3 token Ids
-          cardSelected : null //1 card Id
+          cardSelected : {
+            id: null, 
+            tokenName: null, 
+          }
       }
     }
     this.handleRegister = this.handleRegister.bind(this)
@@ -38,9 +42,15 @@ class App extends React.Component {
     this.handleGetToken = this.handleGetToken.bind(this)
     this.playTurn = this.playTurn.bind(this)
     this.handleGetNoble = this.handleGetNoble.bind(this)
+    this.cancelPlay = this.cancelPlay.bind(this)
+    this.handlePlayClick = this.handlePlayClick.bind(this)
+    this.setNobleState = this.setNobleState.bind(this)
+    this.getReserveCard = this.getReserveCard.bind(this)
+    this.getGoldCoin = this.getGoldCoin.bind(this)
   }
   handleGetToken(e){
     var tokenName = e.target.parentElement.classList[1]
+    this.toggleSelectClass(e)
     var currentTokens = 0;
     for(const key in this.state.currentTurn.player.tokenPool){
       console.log("key:", key)
@@ -58,7 +68,7 @@ class App extends React.Component {
       "gold" : 6
     }
     var updated = this.state.currentTurn
-    updated.cardSelected = null
+    updated.cardSelected = {id: null, tokenName: null}
     if(tokenName === "gold" && currentTokens != 10){
       updated.tokensSelected = [] //clears selected tokens if choice is gold
       updated.tokensSelected.push(tokenDict[tokenName])
@@ -171,14 +181,23 @@ class App extends React.Component {
     this.toggleSelectClass(e)
     console.log("selected card", e.target.classList[1])
     var updated = this.state.currentTurn
-    updated.tokensSelected = []
+    if(!this.state.currentTurn.reserveCard){
+      updated.tokensSelected = []
+    }
+
     updated.canPlay = true
-    if(updated.cardSelected === e.target.classList[1]){
+    if(updated.cardSelected.id === e.target.classList[1]){
       updated.canPlay = false
-      updated.cardSelected = null
+      updated.cardSelected = {
+        id: null,
+        tokenName: null,
+      }
     }
     else{
-      updated.cardSelected = e.target.classList[1]
+      updated.cardSelected = {
+        id: e.target.classList[1], 
+        tokenName: e.target.classList[2],
+        }
     }
     
     this.setState({
@@ -186,7 +205,7 @@ class App extends React.Component {
     })
   }
   toggleSelectClass(e){
-    e.target.classList.toggle("selected")
+    e.target.classList.toggle("selectedc")
   }
   handleRegister(){
     console.log("click")
@@ -262,11 +281,15 @@ class App extends React.Component {
           gameData: response,
           currentTurn: { //default everytime component rerenders
             canPlay: false,
+            reserveCard: false,
             player: response.players[response.turn % response.players.length],
             choice: null, // null, tokens, card
             tokensSelected : [], //Array of 3 token Ids
-            cardSelected : null //1 card Id
-        }
+            cardSelected : {
+              id: null,
+              tokenName: null
+            },
+          }
         })
       }
     }
@@ -330,8 +353,10 @@ class App extends React.Component {
     
 
   }
-  checkNobles(response){
+  checkNobles(response, extraCard = ""){
+    console.log("EXTRA CARD IS: ", extraCard)
     var currentPlayer = response.players.filter(player => player.user.id === this.state.user_id)
+    console.log("CURRENT PLAYER: ", currentPlayer)
     var nobles = response.nobles
     var tokenList = ["diamond", "ruby", "sapphire", "onyx", "emerald"]
     var hand = {
@@ -341,9 +366,13 @@ class App extends React.Component {
       "onyx" : 0, 
       "emerald" : 0
     }
+    if(extraCard != ""){
+      hand[extraCard] += 1
+    }
     for(var i = 0; i < currentPlayer[0].cards.length; i++){ //sets hand
-      hand[currentPlayer[0].cards[i].tokenName] += 1
-
+      if(currentPlayer[0].ownedCards[i] === "1"){ //Checks for Reserved Cards
+        hand[currentPlayer[0].cards[i].tokenName] += 1
+      }
     }
     var availableNobles = []
     for(var i = 0; i < nobles.length; i++){
@@ -370,7 +399,7 @@ class App extends React.Component {
         //Go to Staging Area
         var response = JSON.parse(xhr.response)
         console.log("Game Update: ", response)
-        if(response.turn > 0){
+        if(response.decks.length > 0){
           
           var updated = this.state.currentTurn
           updated.player = (response.players[response.turn % response.players.length])
@@ -393,85 +422,160 @@ class App extends React.Component {
     }
     xhr.send(JSON.stringify(data))
   }
-  playTurn(e){
-    if(e.target.value === 'cancel'){
-      var updated = this.state.currentTurn
-      updated.canPlay = false
+  handlePlayClick(e){ //Currently doesn't work properly. 
+    //Checks to see if the play would warrant getting a noble 
+    var availableNobles = this.checkNobles(this.state.gameData, this.state.currentTurn.cardSelected.tokenName )
+
+    if(this.state.currentTurn.tokensSelected[0] === 6 && this.state.currentTurn.reserveCard === false){
+      console.log("CONSOLING LOG RESERVING CARD")
+      this.reserveCard()
+    }
+    else if(availableNobles.length > 0){ // if noble is available, re-renderes the screen with available nobles
+      this.setNobleState(availableNobles)
+    }
+    else{
+      this.playTurn()
+    }
+    //Noble would submit the play information
+  }
+  //Sends the Noble Div with the information from the play.
+  setNobleState(availableNobles){
+    var copyCurrentTurn = this.state.currentTurn
+    copyCurrentTurn.canPlay = false
+
+    this.setState({
+      availableNobles: availableNobles,
+      currentTurn: copyCurrentTurn
+    })
+  }
+  cancelPlay(){
+    var updated = this.state.currentTurn
+    
+    updated.canPlay = false
       this.setState({
         currentTurn: updated
       })
-    }
-    if(e.target.value === 'play'){
-      if(this.state.currentTurn.tokensSelected.length > 0){
-        var xhr = new XMLHttpRequest();
-        var url = '/games/'+this.state.gameData.id+"/taketokens/"+this.state.currentTurn.player.id
-        xhr.open("POST", API_URL+ url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = () => { // Call a function when the state changes.
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-              let response = JSON.parse(xhr.response)
-                if(xhr.status === 200){
-                  var availableNobles =  this.checkNobles(response)
-                  this.setState({
-                    currentTurn: { //default everytime component rerenders
-                      canPlay: false,
-                      player: response.players[response.turn % response.players.length],
-                      choice: null, // null, tokens, card
-                      tokensSelected : [], //Array of 3 token Ids
-                      cardSelected : null //1 card Id
-                  },
-                  availableNobles : availableNobles
-                  })
-                  this.getGameUpdate()
-                }
-                else{
-                  console.log(response)
-                  alert("Problem with Play! ")
-                }
-            }
-        }
-        var data = {
-            "tokens" : this.state.currentTurn.tokensSelected
-        }
-        xhr.send(JSON.stringify(data));
-      }
-      if(this.state.currentTurn.cardSelected){
-        console.log("Taking Card")
-        var xhr = new XMLHttpRequest();
-        var url = '/games/'+this.state.gameData.id+"/takecard/"+this.state.currentTurn.player.id
-        xhr.open("POST", API_URL+ url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = () => { // Call a function when the state changes.
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-              let response = JSON.parse(xhr.response)
-                if(xhr.status === 200){
-                  var availableNobles =  this.checkNobles(response)
-                  this.setState({
-                    currentTurn: { //default everytime component rerenders
-                      canPlay: false,
-                      player: response.players[response.turn % response.players.length],
-                      choice: null, // null, tokens, card
-                      tokensSelected : [], //Array of 3 token Ids
-                      cardSelected : null //1 card Id
-                  },
-                    availableNobles : availableNobles
-                  })
-                  this.getGameUpdate()
-                }
-                else{
-                  console.log(response)
-                  alert("Problem with Play! ")
-                }
-            }
-        }
-        var data = {
-            "card_id" : parseInt(this.state.currentTurn.cardSelected)
-        }
-        xhr.send(JSON.stringify(data));
-      }
-    }
   }
-  handleGetNoble(e){ //NOT TESTED
+  getGoldCoin(){
+    var xhr = new XMLHttpRequest();
+    var url = '/games/'+this.state.gameData.id+"/taketokens/"+this.state.currentTurn.player.id
+    xhr.open("POST", API_URL+ url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => { // Call a function when the state changes.
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+          let response = JSON.parse(xhr.response)
+            if(xhr.status === 200){
+              this.setState({
+                currentTurn: { //default everytime component rerenders
+                  canPlay: false,
+                  reserveCard: false,
+                  player: response.players[response.turn % response.players.length],
+                  choice: null, // null, tokens, card
+                  tokensSelected : [], //Array of 3 token Ids
+                  cardSelected : {
+                    id: null, 
+                    tokenName: null,
+                  } 
+              },
+              availableNobles : []
+              })
+              this.getGameUpdate()
+            }
+            else{
+              console.log(response)
+              alert("Problem with Play! ")
+            }
+        }
+    }
+    var data = {
+        "tokens" : [parseInt(6)]
+    }
+    xhr.send(JSON.stringify(data));
+  }
+  playTurn(){
+    if(this.state.currentTurn.tokensSelected[0] === 6 && this.state.currentTurn.reserveCard){
+      this.getReserveCard()
+      this.getGoldCoin()
+      return
+    }
+    
+    if(this.state.currentTurn.tokensSelected.length > 0){
+      var xhr = new XMLHttpRequest();
+      var url = '/games/'+this.state.gameData.id+"/taketokens/"+this.state.currentTurn.player.id
+      xhr.open("POST", API_URL+ url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = () => { // Call a function when the state changes.
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            let response = JSON.parse(xhr.response)
+              if(xhr.status === 200){
+                this.setState({
+                  currentTurn: { //default everytime component rerenders
+                    canPlay: false,
+                    reserveCard: false,
+                    player: response.players[response.turn % response.players.length],
+                    choice: null, // null, tokens, card
+                    tokensSelected : [], //Array of 3 token Ids
+                    cardSelected : {
+                      id: null, 
+                      tokenName: null,
+                    } 
+                },
+                availableNobles : []
+                })
+                this.getGameUpdate()
+              }
+              else{
+                console.log(response)
+                alert("Problem with Play! ")
+              }
+          }
+      }
+      var data = {
+          "tokens" : this.state.currentTurn.tokensSelected
+      }
+      xhr.send(JSON.stringify(data));
+    }
+    else if(this.state.currentTurn.cardSelected.id){
+      console.log("Taking Card")
+      var xhr = new XMLHttpRequest();
+      var url = '/games/'+this.state.gameData.id+"/takecard/"+this.state.currentTurn.player.id
+      xhr.open("POST", API_URL+ url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = () => { // Call a function when the state changes.
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            let response = JSON.parse(xhr.response)
+              if(xhr.status === 200){
+                
+                this.setState({
+                  currentTurn: { //default everytime component rerenders
+                    canPlay: false,
+                    reserveCard: false,
+                    player: response.players[response.turn % response.players.length],
+                    choice: null, // null, tokens, card
+                    tokensSelected : [], //Array of 3 token Ids
+                    cardSelected : {
+                      id: null, 
+                      tokenName: null,
+                    } 
+                  },
+                  availableNobles : []
+                })
+                this.getGameUpdate()
+              }
+              else{
+                console.log(response)
+                alert("Problem with Play! ")
+              }
+          }
+      }
+      var data = {
+          "card_id" : parseInt(this.state.currentTurn.cardSelected.id)
+      }
+      xhr.send(JSON.stringify(data));
+    }
+    
+  }
+  handleGetNoble(e){ 
     console.log(e.target.classList[1])
     var xhr = new XMLHttpRequest();
         var url = '/games/'+this.state.gameData.id+"/takenoble/"+this.state.currentTurn.player.id
@@ -485,6 +589,7 @@ class App extends React.Component {
                   this.setState({
                     availableNobles : []
                   })
+                  this.playTurn()
                 }
                 else{
                   console.log(response)
@@ -493,9 +598,45 @@ class App extends React.Component {
             }
         }
         var data = {
-            "noble_id" : parseInt(e.target.classList[1])
+            "noble_id" : parseInt(e.target.classList[1]),
+            "tokenName" : this.state.currentTurn.cardSelected.tokenName
         }
         xhr.send(JSON.stringify(data));
+  }
+  reserveCard(){
+    //pick a card
+    var copyCurrentTurn = this.state.currentTurn
+    copyCurrentTurn.reserveCard = true
+    copyCurrentTurn.canPlay = false
+    //render the game board again. Tokens unclickable and all Cards Selectable. 
+    this.setState({
+      currentTurn: copyCurrentTurn
+    })
+    //when card is clicked pop-up with button 'reserve card' Go to handle play click. 
+    //send API call to db and finish playing the turn with the token. 
+  }
+  getReserveCard(){
+    var xhr = new XMLHttpRequest();
+      var url = '/games/'+this.state.gameData.id+"/reservecard/"+this.state.currentTurn.player.id
+      xhr.open("POST", API_URL+ url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = () => { // Call a function when the state changes.
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            let response = JSON.parse(xhr.response)
+              if(xhr.status === 200){
+                console.log("RESPONSE AFTER RESERVE CARD", response )
+                return
+              }
+              else{
+                console.log(response)
+                alert("Problem with Reserving Card!! ")
+              }
+          }
+      }
+      var data = {
+          "card_id" : parseInt(this.state.currentTurn.cardSelected.id)
+      }
+      xhr.send(JSON.stringify(data));
   }
   renderApp(){
     if(this.state.gameStatus === "active"){
@@ -505,7 +646,8 @@ class App extends React.Component {
           availableNobles = {this.state.availableNobles}
           selectToken = {this.handleGetToken}
           selectCard = {this.handleSelectCard}
-          playTurn = {this.playTurn}
+          playTurn = {this.handlePlayClick}
+          cancelPlay = {this.cancelPlay}
           loggedInPlayer = {this.state.gameData.players.filter(player => player.user.id === this.state.user_id)[0]}
           getNoble = {this.handleGetNoble}
           />)

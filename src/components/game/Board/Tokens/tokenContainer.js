@@ -4,14 +4,29 @@ import './token.css'
 class TokenContainer extends React.Component {
     renderTokens(tokenObject){
         var tokens = []
+        var clickFunction = this.props.selectToken
+        if(this.props.currentTurn.reserveCard){
+            clickFunction = () => {}
+        }
         for(const key in tokenObject){
-            tokens.push(
-                <div className={"tokenSet "+key}
-                onClick={this.props.selectToken}
-                >
-                    {this.renderToken(key, tokenObject[key])}
-                </div>
-                )
+            if(tokenObject[key] === 0){
+                tokens.push(
+                    <div className={"tokenSet "+key}
+                    onClick={() => {}}
+                    >
+                        {this.renderToken(key, tokenObject[key])}
+                    </div>
+                    )
+            }
+            else{
+                tokens.push(
+                    <div className={"tokenSet "+key}
+                    onClick={clickFunction}
+                    >
+                        {this.renderToken(key, tokenObject[key])}
+                    </div>
+                    )
+            }
         }
         return tokens
     }
