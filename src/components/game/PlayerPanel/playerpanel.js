@@ -15,6 +15,7 @@ class PlayerPanel extends React.Component {
                 turn={this.props.turn}
                 numOfPlayers={playersArray.length}
                 openReservedCardPanel = {this.props.openReservedCardPanel}
+                closeReservedCardPanel = {this.props.closeReservedCardPanel}
                 loggedInPlayer = {this.props.loggedInPlayer}
                 reserveCanPlay = {this.props.reserveCanPlay}
                 />)

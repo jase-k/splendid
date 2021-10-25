@@ -24,6 +24,7 @@ class App extends React.Component {
         currentTurn: { //default everytime component rerenders
           canPlay: false,
           reserveCard: false,
+          openReserve: false,
           player: gameData.players[gameData.turn % gameData.players.length],
           choice: null, // null, tokens, card
           tokensSelected : [], //Array of 3 token Ids
@@ -47,6 +48,8 @@ class App extends React.Component {
     this.setNobleState = this.setNobleState.bind(this)
     this.getReserveCard = this.getReserveCard.bind(this)
     this.getGoldCoin = this.getGoldCoin.bind(this)
+    this.openReservedCardPanel = this.openReservedCardPanel.bind(this)
+    this.closeReservedCardPanel = this.closeReservedCardPanel.bind(this)
   }
   handleGetToken(e){
     var tokenName = e.target.parentElement.classList[1]
@@ -282,6 +285,7 @@ class App extends React.Component {
           currentTurn: { //default everytime component rerenders
             canPlay: false,
             reserveCard: false,
+            openReserve: false,
             player: response.players[response.turn % response.players.length],
             choice: null, // null, tokens, card
             tokensSelected : [], //Array of 3 token Ids
@@ -470,6 +474,7 @@ class App extends React.Component {
                 currentTurn: { //default everytime component rerenders
                   canPlay: false,
                   reserveCard: false,
+                  openReserve: false,
                   player: response.players[response.turn % response.players.length],
                   choice: null, // null, tokens, card
                   tokensSelected : [], //Array of 3 token Ids
@@ -513,6 +518,7 @@ class App extends React.Component {
                   currentTurn: { //default everytime component rerenders
                     canPlay: false,
                     reserveCard: false,
+                    openReserve: false,
                     player: response.players[response.turn % response.players.length],
                     choice: null, // null, tokens, card
                     tokensSelected : [], //Array of 3 token Ids
@@ -551,6 +557,7 @@ class App extends React.Component {
                   currentTurn: { //default everytime component rerenders
                     canPlay: false,
                     reserveCard: false,
+                    openReserve: false,
                     player: response.players[response.turn % response.players.length],
                     choice: null, // null, tokens, card
                     tokensSelected : [], //Array of 3 token Ids
@@ -629,6 +636,7 @@ class App extends React.Component {
                   currentTurn: { //default everytime component rerenders
                     canPlay: false,
                     reserveCard: false,
+                    openReserve: false,
                     player: response.players[response.turn % response.players.length],
                     choice: null, // null, tokens, card
                     tokensSelected : [], //Array of 3 token Ids
@@ -654,6 +662,24 @@ class App extends React.Component {
       }
       xhr.send(JSON.stringify(data));
   }
+  openReservedCardPanel(){
+    console.log("click")
+    var updated = this.state.currentTurn
+    
+    updated.openReserve = true
+      this.setState({
+        currentTurn: updated
+      })
+  }
+  closeReservedCardPanel(){
+    console.log("click")
+    var updated = this.state.currentTurn
+    
+    updated.openReserve = false
+      this.setState({
+        currentTurn: updated
+      })
+  }
   renderApp(){
     if(this.state.gameStatus === "active"){
         return(<Game 
@@ -666,6 +692,8 @@ class App extends React.Component {
           cancelPlay = {this.cancelPlay}
           loggedInPlayer = {this.state.gameData.players.filter(player => player.user.id === this.state.user_id)[0]}
           getNoble = {this.handleGetNoble}
+          openReservedCardPanel = {this.openReservedCardPanel}
+          closeReservedCardPanel = {this.closeReservedCardPanel}
           />)
       }
     else{

@@ -27,6 +27,7 @@ class Player extends React.Component{
                 score={this.findScore(this.props.player)}
                 numOfPlayers={this.props.numOfPlayers}
                 openReservedCardPanel= {this.props.openReservedCardPanel}
+                closeReservedCardPanel = {this.props.closeReservedCardPanel}
                 loggedInPlayer = {this.props.loggedInPlayer}
                 reserveCanPlay = {this.props.reserveCanPlay}
                 />

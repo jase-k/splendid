@@ -31,7 +31,9 @@ class Game extends React.Component {
             var numOfCards = 0;
             for(var j = 0; j < this.props.loggedInPlayer.cards.length; j++){
                 if(this.props.loggedInPlayer.cards[j].tokenName == tokenList[i]){
-                    numOfCards++
+                    if(this.props.loggedInPlayer.ownedCards[j] === 1){
+                        numOfCards++
+                    }
                 }
             }
             var num = card.tokenCost[tokenList[i]] - tokenPool[tokenList[i]] - numOfCards
@@ -185,18 +187,19 @@ class Game extends React.Component {
         }
         return activeClass
     }
-    openReservedCardPanel(){
-        console.log("click")
-        document.getElementById("reservedCardContainer").classList.toggle("hidden")
-    }
 
     render(){
+        var hidden = " hidden"
+        if(this.props.currentTurn.openReserve){
+            hidden = ""
+        }
         return(
             <div className="container">
                 <img src={process.env.PUBLIC_URL +"background.jpg"} className="background" alt=""/>
                 < PlayerPanel players={this.props.game.players} 
                 turn={this.props.game.turn}
-                openReservedCardPanel = {this.openReservedCardPanel}
+                openReservedCardPanel = {this.props.openReservedCardPanel}
+                closeReservedCardPanel = {this.props.closeReservedCardPanel}
                 loggedInPlayer = {this.props.loggedInPlayer}
                 side="left"
                 reserveCanPlay = {this.reserveCanPlay()}
@@ -214,13 +217,14 @@ class Game extends React.Component {
                 turn={this.props.game.turn}
                 side="right" 
                 loggedInPlayer = {this.props.loggedInPlayer}
-                openReservedCardPanel = {this.openReservedCardPanel}
+                openReservedCardPanel = {this.props.openReservedCardPanel}
+                closeReservedCardPanel = {this.props.closeReservedCardPanel}
                 />
-                <div className="championOverlay hidden" id="reservedCardContainer">
+                <div className={"championOverlay"+hidden} id="reservedCardContainer">
                     <div className="playTurn">
                         <button 
                         className="exit"
-                        onClick={this.openReservedCardPanel}
+                        onClick={this.props.closeReservedCardPanel}
                         >X</button>
                         {this.reservedCardList()}
                     </div>
