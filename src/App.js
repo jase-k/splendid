@@ -495,7 +495,7 @@ class App extends React.Component {
   playTurn(){
     if(this.state.currentTurn.tokensSelected[0] === 6 && this.state.currentTurn.reserveCard){
       this.getReserveCard()
-      this.getGoldCoin()
+      //this.getGoldCoin()
       return
     }
     
@@ -624,6 +624,21 @@ class App extends React.Component {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             let response = JSON.parse(xhr.response)
               if(xhr.status === 200){
+                this.setState({
+                  currentTurn: { //default everytime component rerenders
+                    canPlay: false,
+                    reserveCard: false,
+                    player: response.players[response.turn % response.players.length],
+                    choice: null, // null, tokens, card
+                    tokensSelected : [], //Array of 3 token Ids
+                    cardSelected : {
+                      id: null, 
+                      tokenName: null,
+                    } 
+                },
+                availableNobles : []
+                })
+                this.getGameUpdate()
                 console.log("RESPONSE AFTER RESERVE CARD", response )
                 return
               }
