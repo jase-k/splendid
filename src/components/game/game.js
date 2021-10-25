@@ -31,7 +31,7 @@ class Game extends React.Component {
             var numOfCards = 0;
             for(var j = 0; j < this.props.loggedInPlayer.cards.length; j++){
                 if(this.props.loggedInPlayer.cards[j].tokenName == tokenList[i]){
-                    if(this.props.loggedInPlayer.ownedCards[j] === 1){
+                    if(this.props.loggedInPlayer.ownedCards[j] === "1"){
                         numOfCards++
                     }
                 }

@@ -371,7 +371,12 @@ class App extends React.Component {
       "emerald" : 0
     }
     if(extraCard != ""){
-      hand[extraCard] += 1
+      if(this.state.currentTurn.cardSelected.id && this.state.currentTurn.tokensSelected.length >0){//Checks to see if the extra card is a reserved card or not.
+        // continue
+      }
+      else{
+        hand[extraCard] += 1
+      }
     }
     for(var i = 0; i < currentPlayer[0].cards.length; i++){ //sets hand
       if(currentPlayer[0].ownedCards[i] === "1"){ //Checks for Reserved Cards
@@ -382,6 +387,8 @@ class App extends React.Component {
     for(var i = 0; i < nobles.length; i++){
       var is_available = true
       for(var j = 0; j < tokenList.length; j++){
+        console.log("Hand: ", hand)
+        console.log("tokenCost: ", nobles[i].tokenCost)
         if(nobles[i].tokenCost[tokenList[j]] > hand[tokenList[j]]){
           is_available = false
         }
