@@ -2,6 +2,7 @@ import React  from "react";
 import './deck.css'
 
 class Deck extends React.Component {
+
     renderCards(deckArray){
         var cards = []
         for(var i = 0; i < 4 && i < deckArray.length; i++){
@@ -48,7 +49,7 @@ class Deck extends React.Component {
         return(
             <div className="deckContainer">
                 <img src={process.env.PUBLIC_URL + "cardImgs/"+this.props.deckCover} />
-                {this.renderCards(this.props.deck.cards)}
+                {this.props.renderCards(this.props.deck.cards)}
             </div>
         )
     }

@@ -33,6 +33,7 @@ class Board extends React.Component {
                 selectCard = {this.props.selectCard}
                 player = {this.props.loggedInPlayer}
                 currentTurn = {this.props.currentTurn}
+                renderCards = {this.props.renderCards}
                 />
                 < Deck 
                 deck={yellowdeck}
@@ -40,6 +41,7 @@ class Board extends React.Component {
                 selectCard = {this.props.selectCard}
                 player = {this.props.loggedInPlayer}
                 currentTurn = {this.props.currentTurn}
+                renderCards = {this.props.renderCards}
                 />
                 < Deck 
                 deck={greendeck}
@@ -47,6 +49,7 @@ class Board extends React.Component {
                 selectCard = {this.props.selectCard}
                 player = {this.props.loggedInPlayer}
                 currentTurn = {this.props.currentTurn}
+                renderCards = {this.props.renderCards}
                 />
                 < TokenContainer 
                 tokens ={this.props.game.tokenPool} 

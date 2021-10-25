@@ -5,6 +5,53 @@ import './playTurn.css'
 
 
 class Game extends React.Component {
+    constructor(props){
+        super(props);
+        this.renderCards = this.renderCards.bind(this)
+        this.reserveCanPlay = this.reserveCanPlay.bind(this)
+    }
+    renderCards(deckArray){
+        var cards = []
+        for(var i = 0; i < 4 && i < deckArray.length; i++){
+            cards.push(this.renderCard(deckArray[i]))
+        }
+        return cards
+    }
+    renderCard(card){
+        var clickFunction = this.props.selectCard
+        var hover = " hover"
+        var tokenPool = this.props.loggedInPlayer.tokenPool
+        // console.log("CARD", card, tokenPool)
+        var tokenList = ["diamond", "ruby", "sapphire", "onyx", "emerald"]
+        var goldCount = tokenPool.gold
+
+        
+        for(var i = 0; i < 5; i++){
+
+            var numOfCards = 0;
+            for(var j = 0; j < this.props.loggedInPlayer.cards.length; j++){
+                if(this.props.loggedInPlayer.cards[j].tokenName == tokenList[i]){
+                    numOfCards++
+                }
+            }
+            var num = card.tokenCost[tokenList[i]] - tokenPool[tokenList[i]] - numOfCards
+            if(num > 0){
+                goldCount -= num
+            }
+        }
+        if(goldCount < 0 && this.props.currentTurn.reserveCard == false){
+            clickFunction = () =>{}
+            hover = ""
+        }
+        
+        
+        return (
+            <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"}
+            className = {"card "+card.id+" "+card.tokenName+hover}
+            onClick={clickFunction}
+            />
+        )
+    }
     renderCanPlay(){
         if(this.props.currentTurn.canPlay){
             return(
@@ -108,23 +155,76 @@ class Game extends React.Component {
             )
         }
     }
+    reservedCardList(){
+        var loggedInPlayer = this.props.loggedInPlayer
+        var reservedCardList = []
+        var renderList =[]
+        //Sets Card List
+        for(var i = 0 ; i <  loggedInPlayer.cards.length; i++){
+            if(loggedInPlayer.ownedCards[i] === "0"){
+                reservedCardList.push(loggedInPlayer.cards[i])
+            }
+        }
+
+        for(var i = 0; i < reservedCardList.length; i++){ //Creates DOM objects
+            renderList.push(this.renderCard(reservedCardList[i]))
+        }
+
+        return renderList
+    }
+    reserveCanPlay(){
+        var activeClass = ""
+        var elemList = this.reservedCardList()
+        var regex = new RegExp('hover')
+        
+        
+        for(var i =0; i < elemList.length; i++){
+            if(regex.test(elemList[i].props.className)){
+                activeClass = " active"
+            }
+        }
+        return activeClass
+    }
+    openReservedCardPanel(){
+        console.log("click")
+        document.getElementById("reservedCardContainer").classList.toggle("hidden")
+    }
+
     render(){
         return(
             <div className="container">
                 <img src={process.env.PUBLIC_URL +"background.jpg"} className="background" alt=""/>
                 < PlayerPanel players={this.props.game.players} 
                 turn={this.props.game.turn}
-                side="left" />
+                openReservedCardPanel = {this.openReservedCardPanel}
+                loggedInPlayer = {this.props.loggedInPlayer}
+                side="left"
+                reserveCanPlay = {this.reserveCanPlay()}
+                />
                 < Board 
                 game={this.props.game}
                 currentTurn = {this.props.currentTurn}
                 selectToken = {this.props.selectToken}
                 selectCard = {this.props.selectCard}
                 loggedInPlayer = {this.props.loggedInPlayer}
+                renderCards = {this.renderCards}
                 />
                 < PlayerPanel players={this.props.game.players} 
+                reserveCanPlay = {this.reserveCanPlay()}
                 turn={this.props.game.turn}
-                side="right" />
+                side="right" 
+                loggedInPlayer = {this.props.loggedInPlayer}
+                openReservedCardPanel = {this.openReservedCardPanel}
+                />
+                <div className="championOverlay hidden" id="reservedCardContainer">
+                    <div className="playTurn">
+                        <button 
+                        className="exit"
+                        onClick={this.openReservedCardPanel}
+                        >X</button>
+                        {this.reservedCardList()}
+                    </div>
+                </div>
                 {this.renderCanPlay()}
                 {this.holdTurn()}
                 {this.renderCanNoble()}

@@ -13,5 +13,8 @@ You can still click the token container when there is no token
 Upcoming Features: 
 ->
 Reserve a Card rules implemented Be able to display Reserved Cards. 
+    make reserve card clickable
+    display container
+    be able to exit
+    highlight if one card is available for purchase
 Tutorial / Walkthrough of rules
-111111 111111 111111

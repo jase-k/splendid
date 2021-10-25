@@ -464,6 +464,7 @@ class App extends React.Component {
     xhr.onreadystatechange = () => { // Call a function when the state changes.
       if (xhr.readyState === XMLHttpRequest.DONE) {
           let response = JSON.parse(xhr.response)
+          console.log("GOT GOLD COIN")
             if(xhr.status === 200){
               this.setState({
                 currentTurn: { //default everytime component rerenders
@@ -488,15 +489,14 @@ class App extends React.Component {
         }
     }
     var data = {
-        "tokens" : [parseInt(6)]
+        "tokens" : this.state.currentTurn.tokensSelected
     }
     xhr.send(JSON.stringify(data));
   }
   playTurn(){
     if(this.state.currentTurn.tokensSelected[0] === 6 && this.state.currentTurn.reserveCard){
       this.getReserveCard()
-      this.getGoldCoin()
-      return
+      return setTimeout(this.getGoldCoin(), 1000)
     }
     
     if(this.state.currentTurn.tokensSelected.length > 0){

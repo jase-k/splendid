@@ -14,6 +14,9 @@ class PlayerPanel extends React.Component {
                 side={this.props.side} 
                 turn={this.props.turn}
                 numOfPlayers={playersArray.length}
+                openReservedCardPanel = {this.props.openReservedCardPanel}
+                loggedInPlayer = {this.props.loggedInPlayer}
+                reserveCanPlay = {this.props.reserveCanPlay}
                 />)
             }
         return players
@@ -21,7 +24,7 @@ class PlayerPanel extends React.Component {
     render(){
         return(
             <div className="playerContainer right">
-               {this.renderPlayers(this.props.players)}
+                {this.renderPlayers(this.props.players)}
             </div>
         )
     }
