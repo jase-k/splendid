@@ -7,7 +7,7 @@ var gameData = {
 					"updated_at" : "2021-10-15",
 				},
 	"turn" : 17,
-	"tokens" : {
+	"tokenPool" : {
 					"ruby" : 5, 
 					"emerald" : 2, 
 					"sapphire" : 7, 
@@ -75,7 +75,7 @@ var gameData = {
 	"players" : [ 
 					{
 						"id" : 0,
-                        "position" : 1, 
+                        "turn" : 1, 
                         "character_id" : 4,
 						"user" : {
 									"id" : 0,
@@ -121,7 +121,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 2, 
+                        "turn" : 2, 
                         "character_id" : 3,
 						"user" : {
 									"id" : 0,
@@ -206,7 +206,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 3, 
+                        "turn" : 3, 
                         "character_id" : 1,
 						"user" : {
 									"id" : 0,
@@ -291,7 +291,7 @@ var gameData = {
 						},
 						{
 						"id" : 0,
-                        "position" : 0, 
+                        "turn" : 0, 
                         "character_id" : 2,
 						"user" : {
 									"id" : 0,

@@ -6,7 +6,7 @@ class PlayerPanel extends React.Component {
     renderPlayers(playersArray){
         var players = []
         var i = 0
-        if(this.props.side == "right"){
+        if(this.props.side === "right"){
             i = 1;
         }
         for(i; i < playersArray.length; i +=2){
@@ -14,6 +14,10 @@ class PlayerPanel extends React.Component {
                 side={this.props.side} 
                 turn={this.props.turn}
                 numOfPlayers={playersArray.length}
+                openReservedCardPanel = {this.props.openReservedCardPanel}
+                closeReservedCardPanel = {this.props.closeReservedCardPanel}
+                loggedInPlayer = {this.props.loggedInPlayer}
+                reserveCanPlay = {this.props.reserveCanPlay}
                 />)
             }
         return players
@@ -21,7 +25,7 @@ class PlayerPanel extends React.Component {
     render(){
         return(
             <div className="playerContainer right">
-               {this.renderPlayers(this.props.players)}
+                {this.renderPlayers(this.props.players)}
             </div>
         )
     }

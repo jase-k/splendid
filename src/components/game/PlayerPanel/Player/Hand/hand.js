@@ -3,7 +3,6 @@ import './hand.css'
 
 class Hand extends React.Component{
     renderCards(cardArray){
-        console.log(cardArray)
         var cards = []
         var hand = this.calculateCards(cardArray)
         for(const key in hand){
@@ -17,17 +16,18 @@ class Hand extends React.Component{
     }
     calculateCards(cardArray){
         var cards = {
-            "ruby" : 0, 
-            "emerald" : 0, 
-            "sapphire" : 0, 
+            "gold" : 0,
             "diamond" : 0, 
             "onyx" : 0,
-            "gold" : 0,
+            "emerald" : 0, 
+            "ruby" : 0, 
+            "sapphire" : 0, 
         }
         for(var i = 0; i < cardArray.length; i++){
-            cards[cardArray[i].token]++
+            if(this.props.player.ownedCards[i] === "1"){
+                cards[cardArray[i].tokenName]++
+            }
         }
-        console.log("Cards", cards)
         return cards
     }
     renderTokens(tokenObject){
