@@ -42,6 +42,6 @@
   },
   "devDependencies": {
     "gh-pages": "^3.2.3",
-    "homepage": "https://jase-k.github.io/splendid"
-  }
+  },
+  "homepage": "https://jase-k.github.io/splendid"
 }
