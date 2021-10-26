@@ -217,6 +217,7 @@ class App extends React.Component {
 
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader('Access-Control-Allow-Origin', "*");
 
     xhr.onreadystatechange = () => { // Call a function when the state changes.
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
