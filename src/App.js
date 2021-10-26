@@ -6,7 +6,7 @@ import gameData from './SampleGame'
 import React from 'react';
 
 
-var API_URL = 'http://localhost:8080'
+var API_URL = 'http://18.118.84.148'
 
 class App extends React.Component {
   constructor(props){
@@ -216,6 +216,9 @@ class App extends React.Component {
     xhr.open("POST", API_URL+'/users/new', true);
 
     //Send the proper header information along with the request
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhr.setRequestHeader("Access-Control-Allow-Methods","POST");
+    xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, Content-Type");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = () => { // Call a function when the state changes.
