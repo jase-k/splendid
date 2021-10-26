@@ -216,8 +216,10 @@ class App extends React.Component {
     xhr.open("POST", API_URL+'/users/new', true);
 
     //Send the proper header information along with the request
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhr.setRequestHeader("Access-Control-Allow-Methods","POST");
+    xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, Content-Type");
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader('Access-Control-Allow-Origin', "*");
 
     xhr.onreadystatechange = () => { // Call a function when the state changes.
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
