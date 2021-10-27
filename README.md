@@ -34,6 +34,9 @@ If at the end of your turn you have enough cards to take a flower. The available
 can be found on the left side of the card. Flowers cost are cards but you do not have to give up your cards for a flower. *Once take a card, there is 
 no scenario in which you'd have to give it up.*
 ![](https://github.com/jase-k/splendid/blob/master/readme/GetFlower.gif | width="500")
+![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)
+
+
 
 
 
