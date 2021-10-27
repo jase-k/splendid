@@ -7,8 +7,10 @@ Getting noble may not work.
 The person who launches game gets and error. logging back in works
 Don't get gold when picking up reserve Card 
 You can still click the token container when there is no token
+You can click around when getting noble 
 ->
-! You can click around when getting noble 
+If player 2 launches game it throws an error
+tokens stuck in selection if cancel
 
 Upcoming Features: 
 ->
