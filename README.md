@@ -29,4 +29,12 @@ Reserving a Card removes that card from the community play area and puts it into
 and only you can buy this card on a later turn. You'll see the black square by your character have a gold glow if any of your reserved 
 cards can be boughten. 
 
+# Taking a Flower
+If at the end of your turn you have enough cards to take a flower. The available flowers will pop-up and allow you to pick one. Flowers cost
+can be found on the left side of the card. Flowers cost are cards but you do not have to give up your cards for a flower. *Once take a card, there is 
+no scenario in which you'd have to give it up.*
+[Alt-text] (https://github.com/jase-k/splendid/blob/master/readme/GetFlower.gif)_
+
+
+
 
