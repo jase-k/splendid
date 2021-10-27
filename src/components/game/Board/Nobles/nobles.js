@@ -11,7 +11,7 @@ class NobleContainer extends React.Component {
     }
     renderNoble(noble){
         return (
-            <img src={process.env.PUBLIC_URL + '/nobleImgs/'+noble.id+'.png'} className="nobleImg" />
+            <img src={process.env.PUBLIC_URL + '/nobleImgs/'+noble.id+'.png'} className="nobleImg" alt="flower" key={noble.id}/>
         )
     }
     render(){

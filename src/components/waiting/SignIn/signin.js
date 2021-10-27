@@ -5,7 +5,7 @@ class SignIn extends Component {
     constructor(props){
         super(props)
         this.state ={
-            isLogin : false
+            isLogin : true
         }
         this.toggleIsLogin = this.toggleIsLogin.bind(this)
     }
@@ -25,9 +25,9 @@ class SignIn extends Component {
                     <input type="password"placeholder="Password" name="password" id="password"/>
                     <input type="button" value="Login" onClick={this.props.login} />
                     <br />
-                    <a href="#">Forgot Password?</a>
+                    {/* <a href="#">Forgot Password?</a> */}
                     <br />
-                    <a onClick={this.toggleIsLogin} return false>Register</a>
+                    <button onClick={this.toggleIsLogin} className="switch">Register</button>
                 </form>
             )
         }
@@ -43,9 +43,9 @@ class SignIn extends Component {
                     <br />
                     <input type="button" value="Register" onClick={this.props.register}/>
                     <br />
-                    <a href="#">Forgot Password?</a>
+                    {/* <a href="#">Forgot Password?</a> */}
                     <br />
-                    <a onClick={this.toggleIsLogin}>Login</a>
+                    <button onClick={this.toggleIsLogin} className="switch">Login</button>
                 </form>
             )
         }

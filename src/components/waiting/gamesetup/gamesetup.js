@@ -3,11 +3,11 @@ import './gamesetup.css'
 
 class GameSetup extends Component {
     renderCharacters(){
-        var characters = [(<option disabled defaultValue value> --Select Your Character -- </option> )]
+        var characters = [(<option disabled defaultValue key="default"> --Select Your Character -- </option> )]
         var names = ["-","Space Boy", "Space Girl", "Buzz The Bee", "Michael Knight", "Roberto", "Chunky the Penguin", "Space Sister", "Space Baby" ]
         for(var i =1; i < 9; i++){
             characters.push(
-                <option value={i}>{names[i]}</option>
+                <option value={i} key={i}>{names[i]}</option>
             )
         }
         return characters
@@ -48,13 +48,13 @@ class GameSetup extends Component {
                     </div>
                     <input type='button' value='Start' onClick={this.props.startgame} id="start_game"/>
                 </form>
-                <div class="drops">
-                        <div class="drop drop-1"></div>
-                        <div class="drop drop-2"></div>
-                        <div class="drop drop-3"></div>
-                        <div class="drop drop-4"></div>
-                        <div class="drop drop-5"></div>
-                    </div>
+                <div className="drops">
+                        <div className="drop drop-1"></div>
+                        <div className="drop drop-2"></div>
+                        <div className="drop drop-3"></div>
+                        <div className="drop drop-4"></div>
+                        <div className="drop drop-5"></div>
+                </div>
             </div>
         )
     }

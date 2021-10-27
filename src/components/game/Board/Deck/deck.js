@@ -23,7 +23,7 @@ class Deck extends React.Component {
             // console.log(`I'm trying to subract ${card.tokenCost[tokenList[i]]} from ${tokenPool[tokenList[i]]}`)
             var numOfCards = 0;
             for(var j = 0; j < this.props.player.cards.length; j++){
-                if(this.props.player.cards[j].tokenName == tokenList[i]){
+                if(this.props.player.cards[j].tokenName === tokenList[i]){
                     numOfCards++
                 }
             }
@@ -32,7 +32,7 @@ class Deck extends React.Component {
                 goldCount -= num
             }
         }
-        if(goldCount < 0 && this.props.currentTurn.reserveCard == false){
+        if(goldCount < 0 && this.props.currentTurn.reserveCard === false){
             clickFunction = () =>{}
             hover = ""
         }
@@ -42,13 +42,15 @@ class Deck extends React.Component {
             <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"}
             className = {"card "+card.id+" "+card.tokenName+hover}
             onClick={clickFunction}
+            alt ={card.tokenName}
+            key={card.id}
             />
         )
     }
     render(){
         return(
-            <div className="deckContainer">
-                <img src={process.env.PUBLIC_URL + "cardImgs/"+this.props.deckCover} />
+            <div className="deckContainer" key={this.props.deckCover}>
+                <img src={process.env.PUBLIC_URL + "cardImgs/"+this.props.deckCover} alt="deck" key={this.props.deckCover} />
                 {this.props.renderCards(this.props.deck.cards)}
             </div>
         )

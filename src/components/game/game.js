@@ -30,7 +30,7 @@ class Game extends React.Component {
 
             var numOfCards = 0;
             for(var j = 0; j < this.props.loggedInPlayer.cards.length; j++){
-                if(this.props.loggedInPlayer.cards[j].tokenName == tokenList[i]){
+                if(this.props.loggedInPlayer.cards[j].tokenName === tokenList[i]){
                     if(this.props.loggedInPlayer.ownedCards[j] === "1"){
                         numOfCards++
                     }
@@ -41,7 +41,7 @@ class Game extends React.Component {
                 goldCount -= num
             }
         }
-        if(goldCount < 0 && this.props.currentTurn.reserveCard == false){
+        if(goldCount < 0 && this.props.currentTurn.reserveCard === false){
             clickFunction = () =>{}
             hover = ""
         }
@@ -51,6 +51,7 @@ class Game extends React.Component {
             <img src={process.env.PUBLIC_URL +"cardImgs/"+card.id+".png"}
             className = {"card "+card.id+" "+card.tokenName+hover}
             onClick={clickFunction}
+            alt={card.tokenName}
             />
         )
     }
@@ -80,6 +81,7 @@ class Game extends React.Component {
             return(
                 <img src={process.env.PUBLIC_URL +"cardImgs/"+this.props.currentTurn.cardSelected.id+".png"}
                 className = {"card"}
+                alt=""
                 />
             )
         }
@@ -98,6 +100,8 @@ class Game extends React.Component {
                     <img 
                     src={process.env.PUBLIC_URL + '/tokenImgs/'+tokenDict[this.props.currentTurn.tokensSelected[i]]+'.svg'} 
                     className={"tokenImg a"+i} 
+                    alt=""
+                    key={tokenDict[this.props.currentTurn.tokensSelected[i]]+""+i}
                     />
                 )
             }
@@ -168,7 +172,7 @@ class Game extends React.Component {
             }
         }
 
-        for(var i = 0; i < reservedCardList.length; i++){ //Creates DOM objects
+        for(i = 0; i < reservedCardList.length; i++){ //Creates DOM objects
             renderList.push(this.renderCard(reservedCardList[i]))
         }
 

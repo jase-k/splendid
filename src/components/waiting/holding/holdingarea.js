@@ -13,7 +13,7 @@ class HoldingArea extends Component {
         let gamePlayers = this.props.gameData.players
         for(var i = 0; i < gamePlayers.length; i++){
             players.push(
-                <div className="playerWaitingContainer">
+                <div className="playerWaitingContainer" key={i}>
                     <h4>{gamePlayers[i].user.username}</h4>
                     <img src={process.env.PUBLIC_URL +"characters/"+gamePlayers[i].character_id+".png"}/>
                 </div>

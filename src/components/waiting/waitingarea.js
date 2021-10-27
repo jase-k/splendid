@@ -71,10 +71,10 @@ class WaitingArea extends Component {
         var cards = []
         for(var i = 1; i < 50; i++){
             var cardNum = Math.floor((Math.random()*90)+1)
-            var animation = Math.floor(Math.random()*styleList.length)
+            var randAnimation = Math.floor(Math.random()*styleList.length)
             cards.push(
-                <StyleRoot>
-                    <img src={process.env.PUBLIC_URL + "cardImgs/"+cardNum+".png"} className="backgroundCard" style={styleList[animation]} alt=""/>
+                <StyleRoot key={i}>
+                    <img src={process.env.PUBLIC_URL + "cardImgs/"+cardNum+".png"} className="backgroundCard" style={styleList[randAnimation]} alt=""/>
                 </StyleRoot>
             )
         }

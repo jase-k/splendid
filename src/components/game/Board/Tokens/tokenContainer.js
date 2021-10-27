@@ -22,6 +22,7 @@ class TokenContainer extends React.Component {
                 tokens.push(
                     <div className={"tokenSet "+key}
                     onClick={clickFunction}
+                    key={key}
                     >
                         {this.renderToken(key, tokenObject[key])}
                     </div>
@@ -42,6 +43,8 @@ class TokenContainer extends React.Component {
                     top: 2*i,
                     left: 2*i
                 }}
+                alt="token"
+                key={i}
                 />
                 )
         }

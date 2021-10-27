@@ -18,6 +18,7 @@ class PlayerPanel extends React.Component {
                 closeReservedCardPanel = {this.props.closeReservedCardPanel}
                 loggedInPlayer = {this.props.loggedInPlayer}
                 reserveCanPlay = {this.props.reserveCanPlay}
+                key={i}
                 />)
             }
         return players

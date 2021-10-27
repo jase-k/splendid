@@ -6,7 +6,8 @@ import gameData from './SampleGame'
 import React from 'react';
 
 
-var API_URL = 'http://18.118.84.148'
+// var API_URL = 'http://18.118.84.148'
+var API_URL = 'http://localhost:8080'
 
 class App extends React.Component {
   constructor(props){
@@ -72,7 +73,7 @@ class App extends React.Component {
     }
     var updated = this.state.currentTurn
     updated.cardSelected = {id: null, tokenName: null}
-    if(tokenName === "gold" && currentTokens != 10){
+    if(tokenName === "gold" && currentTokens !== 10){
       updated.tokensSelected = [] //clears selected tokens if choice is gold
       updated.tokensSelected.push(tokenDict[tokenName])
       updated.canPlay = true
@@ -82,14 +83,14 @@ class App extends React.Component {
       return
     }
 
-    if(updated.tokensSelected.length === 0 && currentTokens != 10){
+    if(updated.tokensSelected.length === 0 && currentTokens !== 10){
       updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice
       updated.canPlay = false
       this.setState({
         currentTurn: updated
       })
       return
-    }else if(updated.tokensSelected[0] === 6 && currentTokens != 10){
+    }else if(updated.tokensSelected[0] === 6 && currentTokens !== 10){
       updated.tokensSelected = [] //clears gold if choice is not gold
       updated.tokensSelected.push(tokenDict[tokenName]) //Adds the new choice      
       updated.canPlay = false
@@ -280,24 +281,7 @@ class App extends React.Component {
     xhr.onreadystatechange = () => {
       if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
         //Go to Staging Area
-        var response = JSON.parse(xhr.response)
-        console.log("Game Started: ", response)
-        this.setState({
-          gameStatus: "active",
-          gameData: response,
-          currentTurn: { //default everytime component rerenders
-            canPlay: false,
-            reserveCard: false,
-            openReserve: false,
-            player: response.players[response.turn % response.players.length],
-            choice: null, // null, tokens, card
-            tokensSelected : [], //Array of 3 token Ids
-            cardSelected : {
-              id: null,
-              tokenName: null
-            },
-          }
-        })
+        this.getGameUpdate()
       }
     }
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -334,7 +318,7 @@ class App extends React.Component {
       xhr.send();
     }
     else{ 
-      var url = API_URL+"/games/join"
+      url = API_URL+"/games/join"
       var game_id = document.getElementById("game_id").value
 
       xhr.open("POST", url, true);
@@ -373,7 +357,7 @@ class App extends React.Component {
       "onyx" : 0, 
       "emerald" : 0
     }
-    if(extraCard != ""){
+    if(extraCard !== ""){
       if(this.state.currentTurn.cardSelected.id && this.state.currentTurn.tokensSelected.length >0){//Checks to see if the extra card is a reserved card or not.
         // continue
       }
@@ -387,7 +371,7 @@ class App extends React.Component {
       }
     }
     var availableNobles = []
-    for(var i = 0; i < nobles.length; i++){
+    for(i = 0; i < nobles.length; i++){
       var is_available = true
       for(var j = 0; j < tokenList.length; j++){
         console.log("Hand: ", hand)
@@ -554,8 +538,8 @@ class App extends React.Component {
     }
     else if(this.state.currentTurn.cardSelected.id){
       console.log("Taking Card")
-      var xhr = new XMLHttpRequest();
-      var url = '/games/'+this.state.gameData.id+"/takecard/"+this.state.currentTurn.player.id
+      xhr = new XMLHttpRequest();
+      url = '/games/'+this.state.gameData.id+"/takecard/"+this.state.currentTurn.player.id
       xhr.open("POST", API_URL+ url, true);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.onreadystatechange = () => { // Call a function when the state changes.
@@ -586,7 +570,7 @@ class App extends React.Component {
               }
           }
       }
-      var data = {
+      data = {
           "card_id" : parseInt(this.state.currentTurn.cardSelected.id)
       }
       xhr.send(JSON.stringify(data));

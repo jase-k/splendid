@@ -7,7 +7,7 @@ class Hand extends React.Component{
         var hand = this.calculateCards(cardArray)
         for(const key in hand){
             cards.push(
-                <div className={"cardHand "+key+" "+this.props.side} >
+                <div className={"cardHand "+key+" "+this.props.side} key={key} >
                     <span>{hand[key]}</span>
                 </div>
             )
@@ -34,7 +34,7 @@ class Hand extends React.Component{
         var tokens = []
         for(const key in tokenObject){
             tokens.push(
-                <div className={"tokenHand "+key+" "+this.props.side} >
+                <div className={"tokenHand "+key+" "+this.props.side} key={key} >
                     <span>{tokenObject[key]}</span>
                 </div>
             )
