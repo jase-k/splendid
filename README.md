@@ -33,7 +33,7 @@ cards can be boughten.
 If at the end of your turn you have enough cards to take a flower. The available flowers will pop-up and allow you to pick one. Flowers cost
 can be found on the left side of the card. Flowers cost are cards but you do not have to give up your cards for a flower. *Once take a card, there is 
 no scenario in which you'd have to give it up.*
-![taking a flower](https://github.com/jase-k/splendid/blob/master/readme/GetFlower.gif "Taking a Flower Example")_
+![taking a flower](https://github.com/jase-k/splendid/blob/master/readme/GetFlower.gif | width="500")_
 
 
 
