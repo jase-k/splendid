@@ -16,18 +16,24 @@ The person with the most points wins. Ties are broken by who has the least amoun
 
 # Taking tokens
 Taking tokens from the community pile adds them to your stash where you can use them to buy cards (landscapes)
-You may never have more than 10 tokens in your stash at one time. *Gold tokens are wild and can be used as any color
+You may never have more than 10 tokens in your stash at one time. *Gold tokens are wild and can be used as any color*
+![taking tokens](https://github.com/jase-k/splendid/blob/master/readme/Take%20Tokens.gif)
 
 # Paying for a card
 If you have enough cards/tokens to pay for a card (cost show on the bottom left) it will have a gold glow around it. Paying
 for the card will cost you the amount of tokens on the bottom left less the amount of cards you have. (e.g. a card cost 3 diamonds
 and you have 2 diamond cards. You would only have to put one diamond token back)
+![take card](https://github.com/jase-k/splendid/blob/master/readme/takecard.gif)
+
+*Taking a Reserve Card*
+![take reserved card](https://github.com/jase-k/splendid/blob/master/readme/TakeReservedCard.gif)
 
 
 # Reserving a Card
 Reserving a Card removes that card from the community play area and puts it into your reserved deck. Only you can see this deck
 and only you can buy this card on a later turn. You'll see the black square by your character have a gold glow if any of your reserved 
 cards can be boughten. 
+![reserve a card](https://github.com/jase-k/splendid/blob/master/readme/newgame%20(1).gif)
 
 # Taking a Flower
 If at the end of your turn you have enough cards to take a flower. The available flowers will pop-up and allow you to pick one. Flowers cost
