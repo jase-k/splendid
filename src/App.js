@@ -6,8 +6,8 @@ import gameData from './SampleGame'
 import React from 'react';
 
 
-// var API_URL = 'http://18.118.84.148'
-var API_URL = 'http://localhost:8080'
+var API_URL = 'http://18.118.84.148'
+// var API_URL = 'http://localhost:8080'
 
 class App extends React.Component {
   constructor(props){
